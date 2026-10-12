@@ -11,7 +11,11 @@
       tab.tabIndex = i === index ? 0 : -1;
       panels[i].hidden = i !== index;
     });
-    if (focus) tabs[index].focus();
+    if (focus) tabs[index].focus({ preventScroll: true });
+    const box = list.getBoundingClientRect();
+    const item = tabs[index].getBoundingClientRect();
+    if (item.left < box.left + 6) list.scrollLeft -= box.left + 6 - item.left;
+    if (item.right > box.right - 6) list.scrollLeft += item.right - box.right + 6;
   }
 
   list.setAttribute('role', 'tablist');
@@ -43,6 +47,10 @@
   }
   selectFromHash();
   window.addEventListener('hashchange', selectFromHash);
+  window.addEventListener('resize', () => {
+    const index = tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+    if (index >= 0) activate(index);
+  });
 })();
 
 // A seção de tecnologias usa abas em dois níveis. Sem JS, tudo fica visível.
@@ -116,5 +124,73 @@
       if (tab && list.getClientRects().length) keepVisible(tab);
     });
     set.classList.add('tabs-enhanced');
+  });
+})();
+
+// Apenas validação local: nenhum envio ou armazenamento de dados do formulário.
+(() => {
+  const form = document.getElementById('project-form');
+  if (!form) return;
+  const fields = Array.from(form.querySelectorAll('[required]'));
+  const touched = new Set();
+  const messages = {
+    'project-name': 'Informe seu nome.',
+    'project-email': 'Informe seu e-mail.',
+    'project-type': 'Selecione o tipo de projeto.',
+    'project-description': 'Descreva o que você precisa construir ou melhorar.'
+  };
+  function validate(field, showError) {
+    field.setCustomValidity('');
+    let message = '';
+    if (!field.value.trim()) message = messages[field.id];
+    else if (field.validity.typeMismatch) message = 'Informe um e-mail válido, como nome@empresa.com.br.';
+    else if (field.validity.tooLong) message = 'Reduza o texto para o limite deste campo.';
+    field.setCustomValidity(message);
+    if (showError) {
+      document.getElementById(field.id + '-error').textContent = message;
+      field.setAttribute('aria-invalid', String(Boolean(message)));
+    }
+    return !message;
+  }
+  fields.forEach(field => {
+    field.addEventListener('blur', () => {
+      touched.add(field);
+      validate(field, true);
+    });
+    field.addEventListener('input', () => validate(field, touched.has(field)));
+    field.addEventListener('change', () => validate(field, touched.has(field)));
+  });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    fields.forEach(field => { touched.add(field); validate(field, true); });
+    const invalid = fields.find(field => !field.validity.valid);
+    if (invalid) invalid.focus();
+  });
+})();
+
+// Confirma a cópia apenas após a API concluir; falhas oferecem cópia manual.
+(() => {
+  const button = document.getElementById('copy-email');
+  if (!button) return;
+  const status = document.getElementById('copy-status');
+  const fallback = document.getElementById('copy-fallback');
+  const address = document.getElementById('manual-email');
+  button.hidden = false;
+  button.addEventListener('click', async () => {
+    button.disabled = true;
+    status.textContent = '';
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Cópia indisponível');
+      await navigator.clipboard.writeText(address.value);
+      fallback.hidden = true;
+      status.textContent = 'E-mail copiado: ' + address.value;
+    } catch {
+      fallback.hidden = false;
+      status.textContent = 'Não foi possível copiar automaticamente. Selecione o endereço abaixo para copiar manualmente.';
+      address.focus();
+      address.select();
+    } finally {
+      button.disabled = false;
+    }
   });
 })();
