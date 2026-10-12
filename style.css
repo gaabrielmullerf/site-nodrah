@@ -1,0 +1,340 @@
+/* ========================================
+   CONFIGURAÇÕES GERAIS
+======================================== */
+
+body {
+    background-color: #F5F2ED;
+    color: #17151B;
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
+    margin: 0 auto;
+    padding: 24px;
+    max-width: 1100px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Manrope", sans-serif;
+}
+
+
+/* ========================================
+   HEADER / NAVEGAÇÃO
+======================================== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}   
+
+header > p {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    gap: 24px;
+}
+
+nav a {
+    color: #17151B;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #5B35D5;
+}
+
+
+/* ========================================
+   HERO / INÍCIO
+======================================== */
+
+.hero-label {
+    display: block;
+    color: #5B35D5;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+#inicio {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+#inicio h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    max-width: 700px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+}
+
+#inicio p {
+    font-size: 20px;
+    color: #706B76;
+    max-width: 680px;
+    margin-top: 0;
+    margin-bottom: 32px;
+}
+
+#inicio a {
+    display: inline-block;
+    background-color: #5B35D5;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
+}
+
+#inicio a:hover {
+    background-color: #4727B8;
+}
+
+
+/* ========================================
+   SERVIÇOS
+======================================== */
+
+#servicos {
+    padding-bottom: 64px;
+}
+
+.section-label {
+    display: block;
+    color: #5B35D5;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+}
+
+#servicos h2 {
+    font-size: 36px;
+    line-height: 1.2;
+    max-width: 600px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+
+.cards-servicos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.card-servico {
+    background-color: transparent;
+    border: 1px solid #D8D3CC;
+    border-radius: 16px;
+    padding: 28px;
+    min-height: 220px;
+    transition: transform 0.25s ease,
+                border-color 0.25s ease,
+                background-color 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-servico:hover {
+    transform: translateY(-6px);
+    border-color: #5B35D5;
+    background-color: #FFFFFF;
+}
+
+.numero-servico {
+    display: block;
+    color: #5B35D5;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 48px;
+}
+
+.card-servico h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.card-servico p {
+    margin: 0;
+    color: #706B76;
+}
+
+
+/* ========================================
+   PROCESSO
+======================================== */
+
+#processo {
+    padding-bottom: 64px;
+}
+
+.etapas-processo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding-left: 0;
+    counter-reset: etapa;
+}
+
+.etapas-processo li {
+    list-style: none;
+    border-top: 2px solid #5B35D5;
+    padding-top: 20px;
+    counter-increment: etapa;
+}
+
+.etapas-processo li::before {
+    content: "0" counter(etapa);
+    display: block;
+    color: #5B35D5;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+
+/* ========================================
+   PORTFÓLIO
+======================================== */
+
+#portfolio {
+    padding-bottom: 64px;
+}
+
+.projeto {
+    margin-top: 24px;
+}
+
+.projeto-visual {
+    min-height: 420px;
+    background-color: #E2E8F0;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projeto-visual span {
+    color: #64748B;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.projeto-info {
+    padding-top: 24px;
+}
+
+.numero-projeto {
+    display: block;
+    color: #5B35D5;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.projeto-info h3 {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.projeto-info p {
+    color: #706B76;
+    margin: 0;
+}
+
+
+/* ========================================
+   CONTATO
+======================================== */
+
+#contato {
+    background-color: #EFF6FF;
+    padding: 32px;
+    border-radius: 12px;
+}
+
+#contato h2 {
+    margin-top: 0;
+}
+
+#contato p {
+    margin-bottom: 0;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E2E8F0;
+    color: #706B76;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE / MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+    .cards-servicos {
+        grid-template-columns: 1fr;
+    }
+
+    .etapas-processo {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    #inicio {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    #inicio h1 {
+        font-size: 34px;
+    }
+
+    #inicio p {
+        font-size: 18px;
+    }
+
+}
