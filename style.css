@@ -313,9 +313,11 @@ a { color: inherit; }
 .skip-link { position: absolute; left: 24px; top: -100px; padding: 12px; background: var(--text); color: var(--bg); z-index: 10; }
 .skip-link:focus { top: 12px; }
 .site-header { min-height: 96px; gap: 24px; border-bottom: 1px solid var(--line); }
-.brand { display: inline-flex; gap: 10px; align-items: center; text-decoration: none; font: 700 19px "Manrope", sans-serif; letter-spacing: 2px; }
-.brand-symbol { display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid #777783; border-radius: 7px; font-size: 25px; letter-spacing: -2px; line-height: 1; }
-.brand-dot { color: var(--accent); margin-left: -9px; }
+.brand { display: inline-flex; align-items: center; min-width: 0; max-width: 100%; flex: 0 1 auto; text-decoration: none; }
+.site-header > .brand { width: 160px; }
+.footer-identity > .brand { width: 180px; }
+.site-header > .brand > img, .footer-identity > .brand > img { display: block; width: 100%; max-width: 100%; height: auto; }
+@media (max-width: 768px) { .site-header > .brand { width: 135px; } }
 nav { align-items: center; gap: 28px; }
 nav a { color: var(--muted); font-size: 13px; }
 nav a:hover { color: var(--text); }
@@ -490,7 +492,6 @@ footer { color: var(--muted); border-color: var(--line); }
 @media (prefers-reduced-motion: reduce) { #portfolio .preview-arrow, #portfolio .project-button { transition: none; }#portfolio .project-preview:hover .preview-arrow { transform: none; } }
 
 /* Assinatura violeta: tom claro para texto, elétrico para ações e luz. */
-.brand-symbol { color: var(--violet-light); border-color: var(--violet); background: var(--accent-haze); }
 nav a:hover, .text-link:hover { color: var(--violet-light); }
 nav .nav-contact:hover { border-color: var(--violet); background: var(--accent-surface); }
 .hero-label > span { background: var(--violet); box-shadow: 0 0 13px var(--accent-glow); }
@@ -560,7 +561,6 @@ nav .nav-contact:hover { border-color: var(--violet); background: var(--accent-s
 .copy-fallback label { display: block; font-size: 11px; line-height: 1.8; color: var(--muted); margin-bottom: 8px; }
 .copy-fallback input { display: block; width: 100%; min-width: 0; border: 1px solid var(--accent-border); border-radius: 5px; padding: 12px; background: var(--bg); color: var(--text); font: 13px "Inter", sans-serif; }
 .site-footer { margin-top: 64px; padding-top: 34px; border-top: 1px solid var(--line); }
-.site-footer .brand { color: var(--text); }
 .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
 .footer-identity > p { font-size: 12px; color: var(--muted); margin: 17px 0 0; }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 24px; }

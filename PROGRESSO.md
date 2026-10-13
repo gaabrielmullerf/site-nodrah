@@ -1,10 +1,11 @@
 # Progresso do site Nodrah
 
-Atualizado em 12/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework e sem publicação.
+Atualizado em 13/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework e sem publicação.
 
 ## Pronto
 
 - Identidade grafite/violeta, fontes Manrope e Inter, cabeçalho e apresentação com peça de profundidade em CSS.
+- Logo definitiva aplicada no cabeçalho e rodapé com o arquivo assets-logo/nodrah-logo.png, preservando desenho, cores, transparência e proporção original (1315 × 440). Substituiu integralmente a marca provisória; os links levam a #inicio e a imagem usa alt="Nodrah".
 - Cores de assinatura centralizadas: violeta elétrico #8B5CF6 e versão clara #C4B5FD.
 - Quatro soluções por abas: sites institucionais, landing pages, automações e manutenção e evolução. Demonstrações identificadas como ilustrativas.
 - Seção de tecnologias com três grupos, 14 opções, exemplos de código e visuais demonstrativos, sem execução de servidor ou banco de dados.
@@ -21,6 +22,7 @@ Atualizado em 12/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 ## Verificações realizadas
 
 - Chrome headless: layouts em 1440, 1024, 768, 390 e 320 px e ausência de rolagem horizontal nas verificações realizadas.
+- Logo: carregamento, proporção e tamanhos computados conferidos em 1440, 390 e 320 px, com capturas visuais e sem rolagem horizontal. Cabeçalho com 160 px no desktop e 135 px no celular; rodapé com 180 px. Os links contêineres têm as mesmas larguras. A URL do CSS foi versionada para evitar cache antigo; a aba de prévia do usuário não foi inspecionada diretamente.
 - Navegação local entre Nodrah e demonstrações, carregamento das fotos e prévias.
 - Abas, filtros, busca, ordenação, galerias, simulador solar, FAQ e resumos locais.
 - Teclas reais em testes específicos de FAQ, contato e formulário; foco visível e movimento reduzido nos componentes verificados.
@@ -30,6 +32,12 @@ Atualizado em 12/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Nenhum teste em aparelho físico e nenhuma medição completa de desempenho foi realizada.
 
 ## Pendências
+
+### Identidade e apresentação
+
+- Criar e aplicar o favicon a partir da identidade definitiva.
+- Preparar a imagem de compartilhamento e seus metadados.
+- Desenvolver o símbolo animado da apresentação em uma etapa futura. A peça visual atual foi preservada durante a aplicação da logo.
 
 ### Integração real do formulário
 
