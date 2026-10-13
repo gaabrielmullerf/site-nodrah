@@ -12,6 +12,7 @@
       panels[i].hidden = i !== index;
     });
     if (focus) tabs[index].focus({ preventScroll: true });
+    panels[index].dispatchEvent(new CustomEvent('nodrah:panel-selected', { bubbles: true }));
     const box = list.getBoundingClientRect();
     const item = tabs[index].getBoundingClientRect();
     if (item.left < box.left + 6) list.scrollLeft -= box.left + 6 - item.left;
@@ -75,6 +76,7 @@
         panels[i].hidden = i !== index;
       });
       if (focus) tabs[index].focus({ preventScroll: true });
+      panels[index].dispatchEvent(new CustomEvent('nodrah:panel-selected', { bubbles: true }));
       keepVisible(tabs[index]);
       // Uma aba interna pode ter sido selecionada enquanto seu grupo estava oculto.
       const inner = panels[index].querySelector(':scope > [data-tabs]');
@@ -125,6 +127,116 @@
     });
     set.classList.add('tabs-enhanced');
   });
+})();
+
+// Entradas progressivas: o estado padrão do conteúdo é sempre visível.
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!('IntersectionObserver' in window) || reduced.matches) return;
+  let observer;
+  const blocks = [];
+  const show = (block, immediate = false) => {
+    if (!block.classList.contains('reveal-pending')) return;
+    if (immediate) block.classList.add('reveal-immediate');
+    block.classList.remove('reveal-pending');
+    observer?.unobserve(block);
+  };
+  const showWithin = target => {
+    blocks.forEach(block => {
+      if (block === target || block.contains(target) || target.contains(block)) show(block, true);
+    });
+  };
+  const showAll = () => {
+    blocks.forEach(block => show(block, true));
+    observer?.disconnect();
+  };
+  try {
+    observer = new IntersectionObserver(entries => {
+      try {
+        entries.forEach(entry => { if (entry.isIntersecting) show(entry.target); });
+      } catch { showAll(); }
+    }, { threshold: 0, rootMargin: '0px 0px -35px 0px' });
+    const sections = document.querySelectorAll('#solucoes, #tecnologias, #processo, #portfolio, #perguntas, #contato');
+    const selector = '.section-label, .section-intro, .solution-tabs, .solution-panel, .technology-explorer, .etapas-processo > li, .lista-projetos > .projeto, .faq-list > details, :scope > h2, :scope > .contact-description, :scope > .project-form, :scope > .contact-alternative';
+    sections.forEach(section => {
+      section.querySelectorAll(selector).forEach(block => {
+        // Painéis ocultos por abas são revelados imediatamente na seleção.
+        block.classList.add('reveal-block');
+        blocks.push(block);
+        const rect = block.getBoundingClientRect();
+        const visible = rect.height > 0 && rect.top < innerHeight && rect.bottom > 0;
+        if (!visible) {
+          observer.observe(block);
+          block.classList.add('reveal-pending');
+        }
+      });
+    });
+    document.querySelectorAll('.etapas-processo, .lista-projetos, .faq-list').forEach(group => {
+      const items = Array.from(group.children).filter(child => child.classList.contains('reveal-block'));
+      items.forEach((item, index) => item.style.setProperty('--reveal-delay', Math.min(index * 50, 200) + 'ms'));
+    });
+    document.addEventListener('focusin', event => showWithin(event.target));
+    document.addEventListener('nodrah:panel-selected', event => showWithin(event.target));
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const target = document.getElementById(link.hash.slice(1));
+      if (target) showWithin(target);
+    });
+    const revealHash = () => {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) showWithin(target);
+    };
+    window.addEventListener('hashchange', revealHash);
+    window.addEventListener('error', showAll);
+    window.addEventListener('unhandledrejection', showAll);
+    reduced.addEventListener('change', () => { if (reduced.matches) showAll(); });
+    revealHash();
+    if (document.activeElement !== document.body && document.activeElement !== document.documentElement) showWithin(document.activeElement);
+  } catch { showAll(); }
+})();
+
+// O visual é estático sem JS; movimento depende da visibilidade e preferência.
+(() => {
+  const art = document.querySelector('.hero-art');
+  if (!art) return;
+  const tilt = art.querySelector('.symbol-tilt');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const mouse = matchMedia('(hover: hover) and (pointer: fine)');
+  let inView = false;
+  let frame = 0;
+  let x = 0, y = 0;
+  const reset = () => {
+    cancelAnimationFrame(frame); frame = 0;
+    tilt.style.removeProperty('--tilt-x'); tilt.style.removeProperty('--tilt-y');
+  };
+  const update = () => {
+    const active = inView && !document.hidden && !reduced.matches;
+    art.classList.toggle('motion-active', active);
+    if (!active || !mouse.matches) reset();
+  };
+  if ('IntersectionObserver' in window) {
+    art.classList.add('motion-ready');
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      update();
+    }, { threshold: 0 }).observe(art);
+  }
+  art.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || !mouse.matches || reduced.matches || !inView || document.hidden) return;
+    const bounds = art.getBoundingClientRect();
+    x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1)) * 4;
+    y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1)) * -3;
+    if (!frame) frame = requestAnimationFrame(() => {
+      tilt.style.setProperty('--tilt-x', x + 'deg');
+      tilt.style.setProperty('--tilt-y', y + 'deg');
+      frame = 0;
+    });
+  });
+  art.addEventListener('pointerleave', reset);
+  document.addEventListener('visibilitychange', update);
+  reduced.addEventListener('change', update);
+  mouse.addEventListener('change', update);
 })();
 
 // Apenas validação local: nenhum envio ou armazenamento de dados do formulário.

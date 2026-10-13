@@ -6,6 +6,10 @@ Atualizado em 13/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 
 - Identidade grafite/violeta, fontes Manrope e Inter, cabeçalho e apresentação com peça de profundidade em CSS.
 - Logo definitiva aplicada no cabeçalho e rodapé com o arquivo assets-logo/nodrah-logo.png, preservando desenho, cores, transparência e proporção original (1315 × 440). Substituiu integralmente a marca provisória; os links levam a #inicio e a imagem usa alt="Nodrah".
+- Favicon configurado no site principal: assets-logo/favicon.ico com 16, 32 e 48 px, favicon-32x32.png e apple-touch-icon.png de 180 × 180 px. Símbolo extraído da logo original sobre fundo grafite; identidades das demonstrações preservadas.
+- Título da aba principal atualizado para “N O D R A H”.
+- Símbolo oficial animado na apresentação, extraído em 391 × 378 px para assets-logo/nodrah-symbol.png. Flutuação discreta e inclinação por mouse em elementos separados, com pausa fora da tela ou na aba oculta e respeito ao movimento reduzido. Composição estática sem JavaScript.
+- Entradas suaves nas seções de soluções, tecnologias, processo, portfólio, FAQ e contato: 20 px, 600 ms e atrasos sequenciais limitados a 200 ms, apenas na primeira entrada. Cabeçalho, apresentação e animação do símbolo permanecem independentes. Âncoras, foco e seleção de abas revelam o conteúdo imediatamente; sem JavaScript, sem IntersectionObserver ou com movimento reduzido, o conteúdo fica visível.
 - Cores de assinatura centralizadas: violeta elétrico #8B5CF6 e versão clara #C4B5FD.
 - Quatro soluções por abas: sites institucionais, landing pages, automações e manutenção e evolução. Demonstrações identificadas como ilustrativas.
 - Seção de tecnologias com três grupos, 14 opções, exemplos de código e visuais demonstrativos, sem execução de servidor ou banco de dados.
@@ -22,6 +26,10 @@ Atualizado em 13/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 ## Verificações realizadas
 
 - Chrome headless: layouts em 1440, 1024, 768, 390 e 320 px e ausência de rolagem horizontal nas verificações realizadas.
+- Todos os testes de celular foram emulados no navegador; não foram realizados em aparelhos físicos. A revisão em aparelho físico continua pendente.
+- Ícones: inspeção visual em 16, 32 e 180 px, validação das três resoluções internas do ICO e carregamento dos arquivos e referências no Chrome.
+- Símbolo: movimento observado por amostras de aproximadamente 73 quadros em 1440, 1024, 390 e 320 px; mouse e retorno no desktop, ausência de inclinação na emulação de toque, pausa fora da tela e modo estático com movimento reduzido. A pausa por aba oculta foi testada com evento de visibilidade simulado. O carregamento sem JavaScript também foi verificado.
+- Entradas: rolagem nativa por eventos de roda em 1440, 390 e 320 px, com opacidades intermediárias observadas; duração e limites dos atrasos, primeira entrada, âncoras, Tab, foco e abas verificados. Conteúdo visível com JavaScript desativado, IntersectionObserver indisponível e movimento reduzido.
 - Logo: carregamento, proporção e tamanhos computados conferidos em 1440, 390 e 320 px, com capturas visuais e sem rolagem horizontal. Cabeçalho com 160 px no desktop e 135 px no celular; rodapé com 180 px. Os links contêineres têm as mesmas larguras. A URL do CSS foi versionada para evitar cache antigo; a aba de prévia do usuário não foi inspecionada diretamente.
 - Navegação local entre Nodrah e demonstrações, carregamento das fotos e prévias.
 - Abas, filtros, busca, ordenação, galerias, simulador solar, FAQ e resumos locais.
@@ -35,9 +43,7 @@ Atualizado em 13/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 
 ### Identidade e apresentação
 
-- Criar e aplicar o favicon a partir da identidade definitiva.
 - Preparar a imagem de compartilhamento e seus metadados.
-- Desenvolver o símbolo animado da apresentação em uma etapa futura. A peça visual atual foi preservada durante a aplicação da logo.
 
 ### Integração real do formulário
 
@@ -59,6 +65,6 @@ Atualizado em 13/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Revisar os conteúdos e os dados institucionais fornecidos, mantendo conceitos distintos de trabalhos contratados.
 - Revisar acessibilidade, teclado, contrastes, formulários e responsividade em aparelhos físicos e diferentes navegadores.
 - Medir desempenho e avaliar o peso das imagens, fontes e carregamento.
-- Finalizar favicon, metadados de compartilhamento e demais ajustes de apresentação em buscadores.
+- Finalizar imagem e metadados de compartilhamento e demais ajustes de apresentação em buscadores.
 - Definir domínio/hospedagem e verificar HTTPS, rotas, links e imagens no ambiente definitivo quando a publicação for autorizada.
 - Não publicar antes da autorização. Nenhum serviço novo foi configurado.
