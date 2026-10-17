@@ -1,26 +1,162 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Energia solar — Projeto conceito da Nodrah</title>
-  <meta name="description" content="Projeto conceito da Nodrah: energia solar, soluções e uma simulação ilustrativa de economia.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
-</head>
-<body>
-  <a class="skip" href="#inicio">Pular para o conteúdo</a>
-  <div class="concept-bar"><span>PROJETO CONCEITO · NODRAH</span><a href="../../index.html#portfolio">← Voltar à Nodrah</a></div>
-  <header class="wrap"><a class="brand" href="#inicio"><span aria-hidden="true">✳</span> horizonte<span class="brand-small">CONCEITO SOLAR</span></a><nav aria-label="Navegação principal"><a href="#solucoes">Soluções</a><a href="#beneficios">Benefícios</a><a href="#duvidas">Dúvidas</a><a class="nav-button" href="#simulacao">Simular cenário ↗</a></nav></header>
-  <main>
-    <section id="inicio" class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy"><span class="eyebrow">UM NOVO OLHAR PARA A ENERGIA</span><h1 id="hero-title">O futuro começa<br>com um pouco<br>mais de <span>sol.</span></h1><p>Explore possibilidades de energia solar para sua casa ou empresa. Uma ideia de site para tornar decisões complexas mais claras.</p><a class="button" href="#solucoes">Conheça as possibilidades <span aria-hidden="true">↗</span></a><span class="hero-note">Design demonstrativo. Nenhuma empresa ou instalação real é apresentada.</span></div>
-      <div class="solar-art" role="img" aria-label="Ilustração de painéis solares sob um sol circular"><div class="sun"></div><div class="solar-orbit"></div><div class="solar-orbit second"></div><div class="landscape"></div><div class="panels"><div class="solar-panel"></div><div class="solar-panel"></div><div class="solar-panel"></div></div><span class="art-caption">ENERGIA · NOVAS POSSIBILIDADES</span></div>
-    </section>
-    <section id="solucoes" class="wrap section" aria-labelledby="solutions-title"><span class="eyebrow">ONDE A ENERGIA ENCONTRA SUA ROTINA</span><div class="section-heading"><h2 id="solutions-title">Cada espaço,<br>uma possibilidade.</h2><p>O projeto de um sistema depende do consumo, das características do imóvel e da avaliação técnica.</p></div><div class="solution-grid"><article><span>01 / RESIDENCIAL</span><h3>O sol faz parte de casa.</h3><p>Uma apresentação clara de como a geração solar pode se integrar à rotina de um imóvel residencial.</p></article><article><span>02 / EMPRESARIAL</span><h3>Energia para o seu negócio.</h3><p>Informações para explorar cenários de consumo e necessidades de diferentes atividades.</p></article><article><span>03 / PLANEJAMENTO</span><h3>Primeiro, entender.</h3><p>Consumo, área disponível e condições locais ajudam a orientar uma avaliação específica.</p></article></div></section>
-    <section id="beneficios" class="benefits"><div class="wrap benefit-layout"><div><span class="eyebrow">UMA IDEIA COM PROPÓSITO</span><h2>Mais clareza.<br>Novas escolhas.</h2><p>Conhecer as possibilidades é o primeiro passo para avaliar uma solução adequada ao seu contexto.</p></div><ul><li><span aria-hidden="true">↗</span><div><h3>Geração a partir do sol</h3><p>Uma fonte renovável que pode fazer parte da estratégia de energia do imóvel.</p></div></li><li><span aria-hidden="true">↗</span><div><h3>Consumo em perspectiva</h3><p>Uma oportunidade para entender o uso de energia e comparar cenários.</p></div></li><li><span aria-hidden="true">↗</span><div><h3>Planejamento antes da decisão</h3><p>Uma análise técnica e financeira é necessária para avaliar a viabilidade.</p></div></li></ul></div></section>
-    <section id="simulacao" class="wrap section" aria-labelledby="simulation-title"><span class="eyebrow">UM EXERCÍCIO DE POSSIBILIDADES</span><div class="section-heading"><h2 id="simulation-title">E se o cenário<br>fosse diferente?</h2><p>Simule uma redução hipotética sobre um valor mensal. Este exemplo não calcula a produção de um sistema solar.</p></div><div class="calculator"><form id="solar-form" hidden><label for="conta">Valor mensal de referência (R$)</label><input id="conta" type="number" min="50" max="10000" step="1" value="350" required aria-describedby="conta-hint"><small id="conta-hint">Use um valor entre R$ 50 e R$ 10.000.</small><label for="reducao">Redução hipotética: <output id="percentual" for="reducao">60%</output></label><input id="reducao" type="range" min="10" max="80" step="5" value="60" aria-describedby="range-hint"><small id="range-hint">Percentual escolhido apenas para explorar o cálculo.</small><button class="button" type="submit">Calcular estimativa <span aria-hidden="true">↗</span></button></form><noscript><p>Ative o JavaScript para usar a simulação. A fórmula ilustrativa é: valor mensal × percentual hipotético ÷ 100.</p></noscript><div class="simulation-result" id="solar-result" aria-live="polite"><span class="eyebrow">ESTIMATIVA ILUSTRATIVA</span><h3>Escolha suas premissas.</h3><p>O resultado aparece aqui após o cálculo. Não é uma proposta nem uma promessa de economia real.</p></div></div><details class="assumptions" open><summary>Premissas e limites deste exemplo</summary><ul><li>Redução mensal estimada = valor de referência × percentual escolhido ÷ 100.</li><li>Projeção anual = redução mensal estimada × 12, com o mesmo cenário em todos os meses.</li><li>O percentual é hipotético, não foi calculado a partir de um sistema solar.</li><li>Não considera tarifas, encargos mínimos, impostos, regras de compensação, sazonalidade, investimento, financiamento ou manutenção.</li><li>Não estima retorno de investimento. Um cenário real depende de avaliação técnica, dados de consumo e condições locais.</li></ul></details></section>
-    <section id="duvidas" class="wrap section faq" aria-labelledby="faq-title"><span class="eyebrow">PERGUNTAS PARA COMEÇAR</span><h2 id="faq-title">Antes de dar<br>o próximo passo.</h2><details><summary>Este site oferece instalação de energia solar?</summary><p>Não. É um projeto conceito da Nodrah para demonstrar design, navegação e interação. Não representa uma prestadora de serviços.</p></details><details><summary>A simulação representa uma economia real?</summary><p>Não. Ela aplica um percentual hipotético a um valor mensal. Não dimensiona um sistema e não substitui uma avaliação técnica ou financeira.</p></details><details><summary>Que informações ajudam em uma avaliação?</summary><p>Histórico de consumo, características do imóvel, área disponível e condições locais são pontos de partida para uma análise profissional.</p></details></section>
-  </main>
-  <footer class="wrap"><span>horizonte / projeto conceito</span><a href="../../index.html#portfolio">Explore a Nodrah ↗</a><p>Ilustrações próprias em HTML/CSS. Não há contratação ou envio de dados neste site.</p></footer>
-</body></html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Energia solar — Projeto conceito da Nodrah</title>
+        <meta name="description" content="Projeto conceito da Nodrah: energia solar, soluções e uma simulação ilustrativa de economia.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <a class="skip" href="#inicio">Pular para o conteúdo</a>
+        <div class="concept-bar">
+            <span>PROJETO CONCEITO · NODRAH</span>
+            <a href="../../index.html#portfolio">← Voltar à Nodrah</a>
+        </div>
+        <!-- Cabeçalho, logo e navegação. -->
+        <header class="wrap">
+            <a class="brand" href="#inicio"><span aria-hidden="true">✳</span> horizonte<span class="brand-small">CONCEITO SOLAR</span></a>
+            <nav aria-label="Navegação principal">
+                <a href="#solucoes">Soluções</a>
+                <a href="#beneficios">Benefícios</a>
+                <a href="#duvidas">Dúvidas</a>
+                <a class="nav-button" href="#simulacao">Simular cenário ↗</a>
+            </nav>
+        </header>
+        <main>
+            <!-- Apresentação inicial. -->
+            <section id="inicio" class="hero wrap" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <span class="eyebrow">UM NOVO OLHAR PARA A ENERGIA</span>
+                    <h1 id="hero-title">O futuro começa<br>com um pouco<br>mais de <span>sol.</span></h1>
+                    <p>Explore possibilidades de energia solar para sua casa ou empresa. Uma ideia de site para tornar decisões complexas mais claras.</p>
+                    <a class="button" href="#solucoes">Conheça as possibilidades <span aria-hidden="true">↗</span></a>
+                    <span class="hero-note">Design demonstrativo. Nenhuma empresa ou instalação real é apresentada.</span>
+                </div>
+                <figure class="solar-art"><img src="imagens/paineis-telhado.jpg" width="1600" height="1200" fetchpriority="high" alt="Vista aérea de fileiras de painéis solares instalados no telhado plano de um edifício."><figcaption class="art-caption">ENERGIA · NOVAS POSSIBILIDADES</figcaption></figure>
+            </section>
+            <!-- Soluções. -->
+            <section id="solucoes" class="wrap section" aria-labelledby="solutions-title">
+                <span class="eyebrow">ONDE A ENERGIA ENCONTRA SUA ROTINA</span>
+                <div class="section-heading">
+                    <h2 id="solutions-title">Cada espaço,<br>uma possibilidade.</h2>
+                    <p>O projeto de um sistema depende do consumo, das características do imóvel e da avaliação técnica.</p>
+                </div>
+                <div class="solution-grid">
+                    <article>
+                        <span>01 / RESIDENCIAL</span>
+                        <h3>O sol faz parte de casa.</h3>
+                        <p>Uma apresentação clara de como a geração solar pode se integrar à rotina de um imóvel residencial.</p>
+                    </article>
+                    <article>
+                        <span>02 / EMPRESARIAL</span>
+                        <h3>Energia para o seu negócio.</h3>
+                        <p>Informações para explorar cenários de consumo e necessidades de diferentes atividades.</p>
+                    </article>
+                    <article>
+                        <span>03 / PLANEJAMENTO</span>
+                        <h3>Primeiro, entender.</h3>
+                        <p>Consumo, área disponível e condições locais ajudam a orientar uma avaliação específica.</p>
+                    </article>
+                </div>
+            </section>
+            <!-- Benefícios. -->
+            <section id="beneficios" class="benefits">
+                <div class="wrap benefit-layout">
+                    <div>
+                        <span class="eyebrow">UMA IDEIA COM PROPÓSITO</span>
+                        <h2>Mais clareza.<br>Novas escolhas.</h2>
+                        <p>Conhecer as possibilidades é o primeiro passo para avaliar uma solução adequada ao seu contexto.</p>
+                    </div>
+                    <ul>
+                        <li>
+                            <span aria-hidden="true">↗</span>
+                            <div>
+                                <h3>Geração a partir do sol</h3>
+                                <p>Uma fonte renovável que pode fazer parte da estratégia de energia do imóvel.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span aria-hidden="true">↗</span>
+                            <div>
+                                <h3>Consumo em perspectiva</h3>
+                                <p>Uma oportunidade para entender o uso de energia e comparar cenários.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span aria-hidden="true">↗</span>
+                            <div>
+                                <h3>Planejamento antes da decisão</h3>
+                                <p>Uma análise técnica e financeira é necessária para avaliar a viabilidade.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <!-- Simulação. -->
+            <section id="simulacao" class="wrap section" aria-labelledby="simulation-title">
+                <span class="eyebrow">UM EXERCÍCIO DE POSSIBILIDADES</span>
+                <div class="section-heading">
+                    <h2 id="simulation-title">E se o cenário<br>fosse diferente?</h2>
+                    <p>Simule uma redução hipotética sobre um valor mensal. Este exemplo não calcula a produção de um sistema solar.</p>
+                </div>
+                <div class="calculator">
+                    <form id="solar-form" hidden>
+                        <label for="conta">Valor mensal de referência (R$)</label>
+                        <input id="conta" type="number" min="50" max="10000" step="1" value="350" required aria-describedby="conta-hint">
+                        <small id="conta-hint">Use um valor entre R$ 50 e R$ 10.000.</small>
+                        <label for="reducao">Redução hipotética: <output id="percentual" for="reducao">60%</output></label>
+                        <input id="reducao" type="range" min="10" max="80" step="5" value="60" aria-describedby="range-hint">
+                        <small id="range-hint">Percentual escolhido apenas para explorar o cálculo.</small>
+                        <button class="button" type="submit">Calcular estimativa <span aria-hidden="true">↗</span></button>
+                    </form>
+                    <noscript>
+                        <p>Ative o JavaScript para usar a simulação. A fórmula ilustrativa é: valor mensal × percentual hipotético ÷ 100.</p>
+                    </noscript>
+                    <div class="simulation-result" id="solar-result" aria-live="polite">
+                        <span class="eyebrow">ESTIMATIVA ILUSTRATIVA</span>
+                        <h3>Escolha suas premissas.</h3>
+                        <p>O resultado aparece aqui após o cálculo. Não é uma proposta nem uma promessa de economia real.</p>
+                    </div>
+                </div>
+                <details class="assumptions" open>
+                    <summary>Premissas e limites deste exemplo</summary>
+                    <ul>
+                        <li>Redução mensal estimada = valor de referência × percentual escolhido ÷ 100.</li>
+                        <li>Projeção anual = redução mensal estimada × 12, com o mesmo cenário em todos os meses.</li>
+                        <li>O percentual é hipotético, não foi calculado a partir de um sistema solar.</li>
+                        <li>Não considera tarifas, encargos mínimos, impostos, regras de compensação, sazonalidade, investimento, financiamento ou manutenção.</li>
+                        <li>Não estima retorno de investimento. Um cenário real depende de avaliação técnica, dados de consumo e condições locais.</li>
+                    </ul>
+                </details>
+            </section>
+            <!-- Perguntas frequentes. -->
+            <section id="duvidas" class="wrap section faq" aria-labelledby="faq-title">
+                <span class="eyebrow">PERGUNTAS PARA COMEÇAR</span>
+                <h2 id="faq-title">Antes de dar<br>o próximo passo.</h2>
+                <details>
+                    <summary>Este site oferece instalação de energia solar?</summary>
+                    <p>Não. É um projeto conceito da Nodrah para demonstrar design, navegação e interação. Não representa uma prestadora de serviços.</p>
+                </details>
+                <details>
+                    <summary>A simulação representa uma economia real?</summary>
+                    <p>Não. Ela aplica um percentual hipotético a um valor mensal. Não dimensiona um sistema e não substitui uma avaliação técnica ou financeira.</p>
+                </details>
+                <details>
+                    <summary>Que informações ajudam em uma avaliação?</summary>
+                    <p>Histórico de consumo, características do imóvel, área disponível e condições locais são pontos de partida para uma análise profissional.</p>
+                </details>
+            </section>
+        </main>
+        <!-- Rodapé. -->
+        <footer class="wrap">
+            <span>horizonte / projeto conceito</span>
+            <a href="../../index.html#portfolio">Explore a Nodrah ↗</a>
+            <p>Fotografia: Kindel Media / Pexels. Não há contratação ou envio de dados neste site.</p>
+        </footer>
+    </body>
+</html>
