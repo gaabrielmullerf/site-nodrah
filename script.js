@@ -347,12 +347,17 @@
     mouse.addEventListener('change', update);
 })();
 
-// Contato — apenas validação local: nenhum envio ou armazenamento de dados do formulário.
+// Contato — validação local e envio ao Netlify Forms, com alternativa HTML nativa.
 (() => {
     const form = document.getElementById('project-form');
     if (!form) return;
     const fields = Array.from(form.querySelectorAll('[required]'));
     const touched = new Set();
+    const button = form.querySelector('[type="submit"]');
+    const buttonLabel = button.firstChild;
+    const idleLabel = buttonLabel.textContent;
+    const status = document.getElementById('project-form-note');
+    let submitting = false;
     const messages = {
         'project-name': 'Informe seu nome.',
         'project-email': 'Informe seu e-mail.',
@@ -380,11 +385,41 @@
         field.addEventListener('input', () => validate(field, touched.has(field)));
         field.addEventListener('change', () => validate(field, touched.has(field)));
     });
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
         event.preventDefault();
+        if (submitting) return;
         fields.forEach(field => { touched.add(field); validate(field, true); });
         const invalid = fields.find(field => !field.validity.valid);
-        if (invalid) invalid.focus();
+        if (invalid) { invalid.focus(); return; }
+
+        submitting = true;
+        button.disabled = true;
+        buttonLabel.textContent = 'Enviando… ';
+        button.setAttribute('aria-busy', 'true');
+        status.textContent = 'Enviando seu projeto…';
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form)).toString()
+            });
+            if (!response.ok) throw new Error('Envio não confirmado');
+            form.reset();
+            touched.clear();
+            fields.forEach(field => {
+                field.setCustomValidity('');
+                field.removeAttribute('aria-invalid');
+                document.getElementById(field.id + '-error').textContent = '';
+            });
+            status.textContent = 'Projeto enviado! Recebemos suas informações e entraremos em contato.';
+        } catch {
+            status.textContent = 'O envio não foi confirmado. Tente novamente ou entre em contato pelo e-mail contato@nodrah.com.br.';
+        } finally {
+            submitting = false;
+            button.disabled = false;
+            buttonLabel.textContent = idleLabel;
+            button.removeAttribute('aria-busy');
+        }
     });
 })();
 

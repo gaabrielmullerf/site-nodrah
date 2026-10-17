@@ -1,6 +1,6 @@
 # Progresso do site Nodrah
 
-Atualizado em 17/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework e sem publicação.
+Atualizado em 17/10/2026. Projeto em HTML, CSS e JavaScript, sem framework. Repositório privado no GitHub; conexão com o Netlify e deploy automático por origin/master informados pelo responsável pelo site.
 
 ## Pronto
 
@@ -20,7 +20,7 @@ Atualizado em 17/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Vértice Motors: marca fictícia, seis anúncios demonstrativos, busca, filtros combinados, ordenação, detalhes, galeria e resumo local de interesse. Fotografias licenciadas, locais e creditadas; as galerias usam foto completa e recortes identificados.
 - Demonstração antiga de eventos removida após verificar que seus arquivos não eram compartilhados.
 - Perguntas frequentes com interação nativa por details/summary, indicadores +/−, foco violeta e espaçamento responsivo.
-- Contato com nome, e-mail, empresa, tipo de projeto, faixa de investimento e descrição. Labels visíveis e validação local; botão de envio desabilitado com aviso de configuração.
+- Contato com nome, e-mail, empresa, tipo de projeto, faixa de investimento e descrição. Labels, opções e obrigatoriedade preservados. Integração com Netlify Forms implementada, com validação local, honeypot, envio por fetch e alternativa HTML nativa; recebimento real ainda pendente.
 - Alternativa de contato por mailto e cópia de e-mail com confirmação após sucesso ou seleção manual em caso de falha.
 - Rodapé com navegação, e-mail, CNPJ fornecido e copyright de 2026.
 - Link Instagram no rodapé principal: https://www.instagram.com/nodrah.co/, aberto em nova aba com rel="noopener noreferrer".
@@ -43,7 +43,7 @@ Atualizado em 17/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Abas, filtros, busca, ordenação, galerias, simulador solar, FAQ e resumos locais.
 - Teclas reais em testes específicos de FAQ, contato e formulário; foco visível e movimento reduzido nos componentes verificados.
 - Contraste calculado em aplicações de texto e controles, em etapas anteriores. Esses checks não substituem uma auditoria completa de acessibilidade.
-- Formulário: obrigatoriedade, formato de e-mail, correção de erros e bloqueio de envio mesmo com dados válidos. Não há integração nem armazenamento dos dados preenchidos.
+- Na verificação anterior à integração: obrigatoriedade, formato de e-mail, correção de erros e bloqueio de envio mesmo com dados válidos. A implementação atual do Netlify Forms e seus testes estão registrados abaixo.
 - Cópia de e-mail: cenários controlados de operação pendente, sucesso, falha e API indisponível. A área de transferência do visitante não foi validada em todos os navegadores.
 - Nenhum teste em aparelho físico e nenhuma medição completa de desempenho foi realizada.
 
@@ -83,19 +83,32 @@ Atualizado em 17/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Destino solicitado: gaabrielmullerf/site-nodrah, privado, descrição “SITE NODRAH — Site institucional e projetos demonstrativos.”. O envio ao GitHub é um backup versionado; não habilita hospedagem nem publica o site.
 - Revisados códigos, imagens locais, capturas e arquivos de créditos. Nenhum .env, credencial, temporário ou diretório de dependências instalado foi encontrado no projeto. As fontes Manrope e Inter continuam referenciadas pelo Google Fonts, conforme o código existente; não há arquivos de fonte locais adicionais.
 
+### Integração com Netlify Forms — 17/10/2026
+
+- Implementação concluída no formulário existente em #contato: name="projeto-nodrah", method="POST", action="/", data-netlify="true", campo oculto form-name, atributos name nos seis campos existentes e honeypot bot-field oculto e fora da navegação por teclado.
+- Envio JavaScript por fetch para "/", com corpo application/x-www-form-urlencoded incluindo form-name, honeypot e todos os campos. Validação preservada; estado “Enviando…” e bloqueio temporário de solicitações duplicadas.
+- Mensagem de sucesso e limpeza dos campos somente após response.ok. Erro HTTP ou de conexão preserva os dados, reabilita o botão e oferece nova tentativa e contato@nodrah.com.br. Região de status acessível anuncia espera, sucesso e erro. Sem credenciais ou chaves no código.
+- Sem JavaScript, o formulário mantém POST HTML nativo. Avisos antigos de envio em configuração removidos. CSS alterado apenas no comentário que descrevia o bloqueio antigo; nenhuma regra visual modificada. Nenhuma outra seção ou demonstração alterada.
+- Testes simulados no Chrome em 1280 e 390 px: obrigatórios, e-mail inválido, campo com apenas espaços, envio por Enter, URL/POST/content-type e codificação dos oito campos (incluindo caracteres acentuados, & e +), espera, duplicidade, resposta HTTP 503, rejeição de conexão e HTTP 200. Confirmadas preservação dos dados no erro, possibilidade de nova tentativa, sucesso apenas após resposta OK e limpeza somente no sucesso.
+- Alternativa nativa conferida com JavaScript desativado: POST real do navegador para um endpoint local simulado, com os campos codificados e form-name preservado. O destino foi substituído apenas na sessão de teste para o servidor local; o HTML de produção permanece com action="/". Nenhum dado de teste foi enviado ao Netlify ou ao e-mail real.
+- Enquadramento do formulário inspecionado em desktop e celular, sem rolagem horizontal. Fontes externas não foram validadas nesta etapa; foram bloqueadas apenas na sessão de testes para evitar dependência de rede. git diff --check executado e diff revisado.
+- Segundo o responsável, a detecção de formulários está ativa e a notificação para contato@nodrah.com.br está configurada no Netlify. Essas configurações não foram verificadas pelo agente no painel.
+- Recebimento real pelo Netlify, classificação de spam e entrega da notificação por e-mail NÃO confirmados. Após o deploy automático acionado pelo push, realizar o teste real e conferir o painel e a caixa de entrada.
+
 ## Pendências
 
 ### Identidade e apresentação
 
 - Validar a prévia real da imagem de compartilhamento nas redes depois que domínio e imagem estiverem públicos. Arquivo e metadados já preparados; nenhum teste real nas redes foi realizado.
 
-### Integração real do formulário
+### Validação real do formulário após o deploy
 
-- Definir e implementar o mecanismo de envio e o destino das mensagens.
-- Preparar validação no servidor, tratamento de falhas e proteção contra abuso conforme a solução escolhida.
-- Definir o tratamento dos dados pessoais e as informações de privacidade aplicáveis.
-- Habilitar o botão somente após a integração estar pronta e testada. Mostrar confirmação de envio apenas após resposta real de sucesso.
-- Até lá, manter o botão desabilitado e a alternativa por e-mail.
+- Aguardar o deploy automático do commit de integração e confirmar a detecção do formulário projeto-nodrah no Netlify.
+- Fazer um envio real pelo site publicado e conferir o registro no painel de Forms, inclusive a classificação de spam.
+- Confirmar a entrega da notificação em contato@nodrah.com.br, incluindo spam/lixo eletrônico; a configuração informada não comprova recebimento.
+- Validar no site publicado o envio com e sem JavaScript e a nova tentativa após falha, sem confundir os testes locais simulados com operação real.
+- Definir o tratamento dos dados pessoais, retenção e informações de privacidade aplicáveis.
+- Manter a alternativa por e-mail. Não declarar recebimento real até conferir o painel e a caixa de entrada.
 
 ### Teste do e-mail
 
@@ -110,5 +123,5 @@ Atualizado em 17/10/2026. Projeto local em HTML, CSS e JavaScript, sem framework
 - Revisar acessibilidade, teclado, contrastes, formulários e responsividade em aparelhos físicos e diferentes navegadores.
 - Executar Lighthouse mobile quando a ferramenta estiver disponível e medir desempenho em aparelho físico/rede móvel. Avaliar fontes externas e cache/compressão na hospedagem; a revisão alternativa por HTTP local está registrada acima.
 - Revisar a apresentação em buscadores e validar os metadados e a imagem de compartilhamento no ambiente público autorizado.
-- Definir domínio/hospedagem e verificar HTTPS, rotas, links e imagens no ambiente definitivo quando a publicação for autorizada.
-- Não publicar antes da autorização. Nenhum serviço de hospedagem foi configurado nesta etapa; o repositório privado no GitHub não constitui publicação do site.
+- Verificar HTTPS, rotas, links e imagens no ambiente Netlify após o deploy, sem alterar DNS ou domínio nesta integração.
+- O responsável autorizou commit e push desta integração para acionar o deploy automático já conectado ao GitHub. Nenhuma configuração de DNS, domínio ou hospedagem foi alterada nesta etapa.

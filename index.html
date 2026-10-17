@@ -828,25 +828,30 @@
                 <span class="section-label">SEU PRÓXIMO PASSO</span>
                 <h2 id="contato-title">Vamos dar forma ao seu próximo projeto.</h2>
                 <p class="contact-description">Conte o que você precisa construir ou melhorar. Vamos conversar sobre uma solução para o seu negócio.</p>
-                <form id="project-form" class="project-form" method="dialog" autocomplete="off" aria-describedby="project-form-note">
+                <form id="project-form" class="project-form" name="projeto-nodrah" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" autocomplete="off" aria-describedby="project-form-note">
+                    <input type="hidden" name="form-name" value="projeto-nodrah">
+                    <!-- Proteção contra spam — campo oculto e fora da navegação por teclado. -->
+                    <p hidden>
+                        <label>Não preencha este campo: <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
+                    </p>
                     <p class="form-instructions">Campos com * são obrigatórios.</p>
                     <div class="project-field">
                         <label for="project-name">Nome <span aria-hidden="true">*</span></label>
-                        <input id="project-name" type="text" required maxlength="120" autocomplete="off" aria-describedby="project-name-error">
+                        <input id="project-name" name="nome" type="text" required maxlength="120" autocomplete="off" aria-describedby="project-name-error">
                         <p class="field-error" id="project-name-error" aria-live="polite"></p>
                     </div>
                     <div class="project-field">
                         <label for="project-email">E-mail <span aria-hidden="true">*</span></label>
-                        <input id="project-email" type="email" required maxlength="254" autocomplete="off" aria-describedby="project-email-error">
+                        <input id="project-email" name="email" type="email" required maxlength="254" autocomplete="off" aria-describedby="project-email-error">
                         <p class="field-error" id="project-email-error" aria-live="polite"></p>
                     </div>
                     <div class="project-field">
                         <label for="project-company">Empresa <span class="field-optional">(opcional)</span></label>
-                        <input id="project-company" type="text" maxlength="160" autocomplete="off">
+                        <input id="project-company" name="empresa" type="text" maxlength="160" autocomplete="off">
                     </div>
                     <div class="project-field">
                         <label for="project-type">Tipo de projeto <span aria-hidden="true">*</span></label>
-                        <select id="project-type" required aria-describedby="project-type-error">
+                        <select id="project-type" name="tipo-projeto" required aria-describedby="project-type-error">
                             <option value="">Selecione uma opção</option>
                             <option>Site institucional</option>
                             <option>Landing page</option>
@@ -858,16 +863,16 @@
                     </div>
                     <div class="project-field field-full">
                         <label for="project-budget">Faixa de investimento <span class="field-optional">(opcional)</span></label>
-                        <input id="project-budget" type="text" maxlength="160" placeholder="Informe um valor aproximado, se já tiver" autocomplete="off">
+                        <input id="project-budget" name="investimento" type="text" maxlength="160" placeholder="Informe um valor aproximado, se já tiver" autocomplete="off">
                     </div>
                     <div class="project-field field-full">
                         <label for="project-description">Descrição do projeto <span aria-hidden="true">*</span></label>
-                        <textarea id="project-description" rows="5" required maxlength="5000" autocomplete="off" aria-describedby="project-description-error"></textarea>
+                        <textarea id="project-description" name="descricao" rows="5" required maxlength="5000" autocomplete="off" aria-describedby="project-description-error"></textarea>
                         <p class="field-error" id="project-description-error" aria-live="polite"></p>
                     </div>
                     <div class="project-submit field-full">
-                        <button class="contact-primary" type="submit" disabled aria-describedby="project-form-note">Enviar projeto <span aria-hidden="true">↗</span></button>
-                        <p id="project-form-note">Envio em configuração. Entre em contato por e-mail.</p>
+                        <button class="contact-primary" type="submit" aria-describedby="project-form-note">Enviar projeto <span aria-hidden="true">↗</span></button>
+                        <p id="project-form-note" role="status" aria-live="polite" aria-atomic="true"></p>
                     </div>
                 </form>
                 <div class="contact-alternative">
@@ -875,7 +880,7 @@
                     <div class="contact-actions">
                         <button class="contact-copy" id="copy-email" type="button" hidden>Copiar e-mail</button>
                     </div>
-                    <p class="contact-note">O link de e-mail abre seu aplicativo de e-mail. O formulário ainda não envia mensagens e não salva os dados preenchidos.</p>
+                    <p class="contact-note">O link de e-mail abre seu aplicativo de e-mail.</p>
                     <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
                     <div class="copy-fallback" id="copy-fallback" hidden>
                         <label for="manual-email">Selecione o endereço e use a opção de copiar do seu dispositivo:</label>
