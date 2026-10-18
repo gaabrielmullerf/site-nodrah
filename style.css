@@ -1223,9 +1223,37 @@ footer {
     }
 
     .site-header {
+        /* Logo e contato na primeira linha; links na segunda, sem sair do fluxo. */
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         align-items: stretch;
         gap: 18px;
+        column-gap: 0;
         padding: 23px 0 18px;
+    }
+
+    .site-header > .brand {
+        grid-column: 1 / 4;
+        grid-row: 1;
+        align-self: center;
+    }
+
+    .site-header > nav {
+        display: contents;
+    }
+
+    .site-header > nav > a {
+        grid-column: span 2;
+        grid-row: 2;
+    }
+
+    .site-header > nav > .nav-contact {
+        grid-column: 4 / 7;
+        grid-row: 1;
+        justify-self: end;
+        align-self: center;
+        margin-left: 0;
+        white-space: nowrap;
     }
 
     nav {
