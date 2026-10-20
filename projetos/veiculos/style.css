@@ -1,14 +1,19 @@
 /* Ordem no HTML: Variáveis e configurações gerais → compartilhados → cabeçalho → apresentação → catálogo → conceito → rodapé → diálogo. */
 /* Regras repetidas, @media e complementos permanecem na ordem original para preservar a cascata. */
 
-/* Variáveis e configurações gerais. */
+/* Paleta do site principal da Nodrah; dimensões e comportamento preservados. */
 :root {
-    color-scheme: light;
-    --bg: #f6f5f1;
-    --ink: #20211f;
-    --muted: #63655e;
-    --line: #d5d6cd;
-    --accent: #887040
+    color-scheme: dark;
+    --bg: #101113;
+    --ink: #f2f2f0;
+    --muted: #b0b1b7;
+    --line: #303238;
+    --surface: #17191c;
+    --accent: #C4B5FD;
+    --accent-ink: #09070F;
+    --accent-hover: #A78BFA;
+    --accent-surface: #282039;
+    --accent-border: #68518B
 }
 
 * {
@@ -55,7 +60,7 @@ button {
 }
 
 :focus-visible {
-    outline: 3px solid #887040;
+    outline: 3px solid var(--accent);
     outline-offset: 5px
 }
 
@@ -80,8 +85,8 @@ button {
     padding: 10px max(24px,calc((100vw - 1200px)/2));
     font-size: 9px;
     letter-spacing: 1px;
-    background: var(--ink);
-    color: #f4f2eb
+    background: var(--surface);
+    color: var(--muted)
 }
 
 .concept-bar a {
@@ -118,14 +123,14 @@ header {
 }
 
 .brand-mark {
-    border: 1px solid #a99b7b;
+    border: 1px solid var(--accent-border);
     width: 38px;
     height: 38px;
     display: grid;
     place-items: center;
     font-size: 26px;
     font-weight: 600;
-    color: #776139;
+    color: var(--accent);
     letter-spacing: -2px
 }
 
@@ -148,7 +153,7 @@ nav a {
 .eyebrow {
     font-size: 9px;
     letter-spacing: 1.8px;
-    color: #756038;
+    color: var(--accent);
     font-weight: 600;
     display: block
 }
@@ -172,7 +177,7 @@ h1 {
 }
 
 h1 span {
-    color: #7c7e72
+    color: var(--accent)
 }
 
 /* Apresentação inicial. */
@@ -194,23 +199,23 @@ h1 span {
     gap: 34px;
     padding: 14px 19px;
     font: 500 11px Inter,sans-serif;
-    background: #20211f;
-    color: #f7f5ee;
-    border: 1px solid #20211f;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 1px solid var(--accent);
     text-decoration: none;
     border-radius: 3px;
     transition: background .2s
 }
 
 .button:hover {
-    background: #4c493e
+    background: var(--accent-hover)
 }
 
 /* Apresentação inicial. */
 .hero-photo {
     position: relative;
     margin: 0;
-    background: #d8dad5
+    background: var(--surface)
 }
 
 .hero-photo img {
@@ -280,8 +285,8 @@ h2 {
     grid-template-columns: 1.5fr repeat(4,minmax(0,1fr));
     gap: 15px;
     padding: 22px;
-    background: #ecece5;
-    border: 1px solid #d2d3c8;
+    background: var(--surface);
+    border: 1px solid var(--line);
     border-radius: 5px
 }
 
@@ -306,10 +311,10 @@ input,select {
     padding: 12px 10px;
     font-size: 11px;
     line-height: 1.4;
-    border: 1px solid #aeb0a3;
+    border: 1px solid var(--accent-border);
     border-radius: 2px;
     color: var(--ink);
-    background: #fff
+    background: var(--bg)
 }
 
 input[type=search] {
@@ -321,7 +326,7 @@ input[type=search] {
     justify-self: end;
     border: 0;
     background: transparent;
-    color: #575346;
+    color: var(--accent);
     font-size: 10px;
     text-decoration: underline;
     padding: 3px 0
@@ -363,7 +368,7 @@ input[type=search] {
 .vehicle-photo {
     display: block;
     position: relative;
-    background: #d8dad5;
+    background: var(--surface);
     aspect-ratio: 1.5;
     overflow: hidden
 }
@@ -384,7 +389,7 @@ input[type=search] {
     position: absolute;
     left: 13px;
     top: 13px;
-    background: #f6f5f1ed;
+    background: rgb(16 17 19 / 93%);
     padding: 4px 7px;
     font-size: 7px;
     letter-spacing: .8px
@@ -397,7 +402,7 @@ input[type=search] {
 .vehicle-brand {
     font-size: 8px;
     letter-spacing: 1.8px;
-    color: #756038
+    color: var(--accent)
 }
 
 .vehicle-card h3 {
@@ -438,14 +443,14 @@ input[type=search] {
 .detail-link {
     font-size: 10px;
     text-decoration: none;
-    border-bottom: 1px solid #999685;
+    border-bottom: 1px solid var(--accent-border);
     padding-bottom: 5px;
     display: inline-flex;
     gap: 24px
 }
 
 .detail-link:hover {
-    color: #766037
+    color: var(--accent-hover)
 }
 
 /* Catálogo, filtros e veículos. */
@@ -457,13 +462,13 @@ input[type=search] {
 .empty-state {
     padding: 45px 25px;
     text-align: center;
-    border: 1px dashed #b7b8ac;
-    background: #eeeee7
+    border: 1px dashed var(--line);
+    background: var(--surface)
 }
 
 .empty-state>span {
     font-size: 40px;
-    color: #887040
+    color: var(--accent)
 }
 
 .empty-state h3 {
@@ -578,7 +583,7 @@ dialog::backdrop {
 .gallery-photo {
     aspect-ratio: 1.35;
     overflow: hidden;
-    background: #d4d6d0
+    background: var(--surface)
 }
 
 .gallery-photo img {
@@ -597,18 +602,18 @@ dialog::backdrop {
 }
 
 .gallery-controls button {
-    background: #e9e9e1;
+    background: var(--surface);
     color: var(--ink);
-    border: 1px solid #b8b9ac;
+    border: 1px solid var(--accent-border);
     padding: 9px 10px;
     font-size: 9px;
     border-radius: 2px
 }
 
 .gallery-controls [aria-pressed=true] {
-    background: #34362f;
-    border-color: #34362f;
-    color: white
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink)
 }
 
 .gallery-note,.interest-note {
@@ -665,8 +670,8 @@ dialog::backdrop {
 }
 
 .interest-summary {
-    background: #e9ecdf;
-    border: 1px solid #b4bd9f;
+    background: var(--accent-surface);
+    border: 1px solid var(--accent-border);
     padding: 17px;
     margin-top: 18px;
     font-size: 11px;

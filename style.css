@@ -617,7 +617,8 @@ nav .nav-contact {
 }
 
 .coordinate-bottom {
-    bottom: 26px;
+    /* Respiro abaixo da placa, inclusive durante o giro do símbolo. */
+    bottom: -6px;
     left: 30px;
 }
 
@@ -1304,7 +1305,7 @@ footer {
     }
 
     .coordinate-bottom {
-        bottom: 8px;
+        bottom: -24px;
     }
 
     .art-floor {
