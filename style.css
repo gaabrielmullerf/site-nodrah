@@ -1488,7 +1488,7 @@ footer {
     width: 36px;
     height: 36px;
     object-fit: contain;
-    filter: brightness(0) invert(.92);
+    /* SVGs locais usam o violeta oficial da Nodrah (#8B5CF6). */
 }
 
 /* Movimento: apenas a faixa é recortada; o body mantém seu comportamento original. */

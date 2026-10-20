@@ -4,4 +4,4 @@ Arquivos locais obtidos do [Devicon v2.17.0](https://github.com/devicons/devicon
 
 SQL utiliza o ícone genérico database do [Bootstrap Icons v1.11.3](https://github.com/twbs/icons/blob/v1.11.3/icons/database.svg), sob licença MIT, reproduzida em LICENSE-bootstrap-icons.txt.
 
-Desenhos preservados; apresentação monocromática aplicada por CSS. As marcas pertencem aos respectivos titulares; sua exibição identifica as tecnologias utilizadas.
+Desenhos preservados; preenchimentos e traços adaptados ao violeta Nodrah (#8B5CF6). As marcas pertencem aos respectivos titulares; sua exibição identifica as tecnologias utilizadas.
