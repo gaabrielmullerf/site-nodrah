@@ -2,15 +2,8 @@
 (() => {
     const root = document.documentElement;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    const sessionKey = 'nodrah-abertura-v1';
-
-    // Sem armazenamento confiável ou com movimento reduzido, o site abre direto.
-    try {
-        if (reduced.matches || sessionStorage.getItem(sessionKey)) return;
-        sessionStorage.setItem(sessionKey, '1');
-    } catch {
-        return;
-    }
+    // Exibe a cada carregamento; respeita a preferência por movimento reduzido.
+    if (reduced.matches) return;
 
     let ended = false;
     let overlay;
