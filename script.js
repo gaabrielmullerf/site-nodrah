@@ -81,7 +81,7 @@
             const index = tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
             activate((index + 1) % tabs.length, false, true);
             schedule();
-        }, 4000);
+        }, 8000);
     };
 
     function activate(index, focus = false, automatic = false) {

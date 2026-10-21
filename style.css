@@ -469,14 +469,18 @@ nav a:hover {
 }
 
 nav .nav-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     color: var(--text);
     border: 1px solid #44464e;
     border-radius: 7px;
     padding: 10px 15px;
 }
 
-.nav-contact span {
-    margin-left: 12px;
+.nav-contact .ui-icon {
+    width: 17px;
+    height: 17px;
 }
 
 /* Apresentação inicial. */
@@ -2193,16 +2197,19 @@ nav .nav-contact:hover {
     display: none;
 }
 
-#perguntas summary::after {
-    content: "+";
+#perguntas summary > .ui-icon {
     color: var(--violet-light);
-    font: 400 23px/1 "Inter", sans-serif;
     flex: 0 0 24px;
-    text-align: center;
+    width: 24px;
+    height: 24px;
 }
 
-#perguntas details[open] summary::after {
-    content: "−";
+#perguntas summary > .faq-minus, #perguntas details[open] summary > .faq-plus {
+    display: none;
+}
+
+#perguntas details[open] summary > .faq-minus {
+    display: inline-block;
 }
 
 #perguntas summary:hover {
@@ -2350,13 +2357,6 @@ nav .nav-contact:hover {
 
 .contact-copy:disabled {
     cursor: progress;
-}
-
-#contato .contact-note {
-    font-size: 10px;
-    line-height: 1.8;
-    color: var(--muted);
-    margin: 17px 0 0;
 }
 
 #contato .copy-status {
@@ -3031,4 +3031,31 @@ html.intro-revealing body::before {
     .intro-pending .site-header > .brand > img {
         visibility: visible;
     }
+}
+
+/* Ícones da interface — SVGs locais, decorativos e alinhados ao texto. */
+.ui-icon-definitions {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ui-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    vertical-align: -.12em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.window-dots .ui-icon {
+    width: 28px;
+    height: 10px;
 }
