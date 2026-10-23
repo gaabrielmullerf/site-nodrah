@@ -2326,6 +2326,62 @@ html.intro-revealing body::before {
     font: inherit;
 }
 
+/* WhatsApp móvel — fora do menu e visível durante a rolagem. */
+.mobile-whatsapp {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #nodrah-navigation > .nav-contact {
+        display: none;
+    }
+
+    .mobile-whatsapp {
+        position: fixed;
+        right: 20px;
+        bottom: calc(20px + env(safe-area-inset-bottom));
+        z-index: 20;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 48px;
+        padding: 12px 18px;
+        border: 1px solid var(--violet-light);
+        border-radius: 999px;
+        background: var(--cta-pulse-dark);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.5;
+        text-decoration: none;
+        animation: cta-pulse 3s ease-in-out infinite;
+    }
+
+    .mobile-whatsapp .ui-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-whatsapp.effect-ready {
+        animation-play-state: paused;
+    }
+
+    .mobile-whatsapp.effect-active {
+        animation-play-state: running;
+    }
+
+    .mobile-whatsapp:is(:hover, :focus-visible) {
+        animation-play-state: paused;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-whatsapp {
+        animation: none;
+    }
+}
+
 /* Fundo: dessaturação preserva os filamentos; colorização fica só na mídia. */
 .nodrah-hero {
     position: relative;

@@ -200,3 +200,10 @@ Atualizado em 17/10/2026. Projeto em HTML, CSS e JavaScript, sem framework. Repo
 - Verificação complementar: emulação de toque confirmou ponteiro coarse, ausência de spotlight ativo e anéis ocultos; Tab navegou entre CTAs com outline visível e Enter abriu #contato com a opção correta. Sem JS e sem movimento reduzido também foram confirmados quatro cards visíveis. Transição do catálogo sobre o hero conferida novamente em 390 px.
 
 - Removida a descrição “Combinamos desenvolvimento, integração e divulgação conforme o que seu negócio precisa.” do cabeçalho de pacotes, com seus estilos exclusivos. Título, etiqueta e cartões preservados. git diff --check sem erros.
+
+### WhatsApp sempre visível no celular — 23/10/2026
+
+- Adicionado link de WhatsApp fora do menu, fixo no canto inferior direito somente até 768 px. Mesmo número, mensagem e atributos seguros do link original. No celular, o link antigo do menu fica oculto; no desktop, o cabeçalho permanece com seu botão original e o link flutuante não aparece.
+- Pulsação violeta suave de 3 s reaproveita cta-pulse. Observador existente pausa o efeito com a aba oculta; hover/foco pausam a pulsação e movimento reduzido a desativa. Área mínima de toque de 48 px e respeito à área segura inferior.
+- Alterados index.html, style.css, script.js e este registro. Prévia local; sem commit, push ou publicação. git diff --check sem erros.
+- Chrome headless em 1440, 390 e 320 px: desktop preservado, link flutuante apenas no celular, visível com menu aberto/fechado e após rolar 2000 px, sem rolagem horizontal e com URL idêntica à original. Movimento reduzido confirmado com animation-name:none. Nenhuma mensagem enviada; testes emulados, sem aparelho físico.

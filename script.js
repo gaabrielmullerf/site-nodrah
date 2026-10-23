@@ -66,7 +66,7 @@
 (() => {
     if (!('IntersectionObserver' in window)) return;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    const elements = [...document.querySelectorAll('.nav-contact, #contato')];
+    const elements = [...document.querySelectorAll('.nav-contact, .mobile-whatsapp, #contato')];
     const visible = new Set();
     const update = () => elements.forEach(element => element.classList.toggle('effect-active', visible.has(element) && !document.hidden && !reduced.matches));
     const observer = new IntersectionObserver(entries => {
