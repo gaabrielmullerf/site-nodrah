@@ -2122,15 +2122,6 @@ html.intro-revealing body::before {
     text-shadow: 0 2px 28px rgb(8 5 16 / 60%);
 }
 
-
-.nodrah-hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    margin-top: 64px;
-}
-
 .nodrah-hero-cta {
     position: relative;
     display: inline-flex;
@@ -2239,11 +2230,6 @@ html.intro-revealing body::before {
 @media (prefers-reduced-motion: no-preference) {
     .nodrah-hero.hero-entering h1 {
         animation: nodrah-hero-reveal .95s cubic-bezier(.16,1,.3,1) backwards;
-    }
-
-
-    .nodrah-hero.hero-entering .nodrah-hero-actions {
-        animation: nodrah-hero-rise .8s .45s backwards;
     }
 
 

@@ -170,3 +170,8 @@ Atualizado em 17/10/2026. Projeto em HTML, CSS e JavaScript, sem framework. Repo
 - Limites: emulação no Chrome, sem aparelhos físicos, outros navegadores ou auditoria completa de acessibilidade/desempenho. Prévia: http://127.0.0.1:8000 (na raiz, `python3 -m http.server 8000 --bind 127.0.0.1`). `git diff --check` sem erros. Branch feat/novo-hero, sem commit, push ou publicação.
 
 - Ajuste do cabeçalho do catálogo: “Da primeira página aos processos da operação, desenvolvemos soluções para cada etapa do seu negócio.” passa a ser a única frase de destaque. Removidas a frase anterior e a descrição duplicada, com seu estilo exclusivo. git diff --check sem erros.
+
+### Remoção do CTA do hero — 23/10/2026
+
+- Removido somente o botão “Conte seu projeto” da abertura e seu contêiner, incluindo estilos e entrada exclusivos de nodrah-hero-actions. CTA do catálogo para #contato e seus estilos compartilhados preservados.
+- Conferidas ausência de links em #inicio e permanência do CTA em .catalog-closing; git diff --check sem erros. Commit e push solicitados pelo responsável; o envio depende da autenticação GitHub disponível no Git local.
