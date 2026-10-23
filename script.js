@@ -167,8 +167,8 @@
                 entries.forEach(entry => { if (entry.isIntersecting) show(entry.target); });
             } catch { showAll(); }
         }, { threshold: 0, rootMargin: '0px 0px -35px 0px' });
-        const sections = document.querySelectorAll('#solucoes, #tecnologias, #processo, #portfolio, #perguntas, #contato');
-        const selector = '.section-label, .section-intro, .catalog-intro, .service-card, .catalog-closing, .technology-carousel, .etapas-processo > li, .lista-projetos > .projeto, .faq-list > details, :scope > h2, :scope > .contact-description, :scope > .project-form, :scope > .contact-alternative';
+        const sections = document.querySelectorAll('#solucoes, #pacotes, #tecnologias, #processo, #portfolio, #perguntas, #contato');
+        const selector = '.section-label, .section-intro, .catalog-intro, .service-card, .catalog-closing, .package-card, .packages-note, .technology-carousel, .etapas-processo > li, .lista-projetos > .projeto, .faq-list > details, :scope > h2, :scope > .contact-description, :scope > .project-form, :scope > .contact-alternative';
         sections.forEach(section => {
             section.querySelectorAll(selector).forEach(block => {
                 block.classList.add('reveal-block');
@@ -185,9 +185,8 @@
             const items = Array.from(group.children).filter(child => child.classList.contains('reveal-block'));
             items.forEach((item, index) => item.style.setProperty('--reveal-delay', Math.min(index * 50, 200) + 'ms'));
         });
-        // O atraso reinicia em cada linha, acompanhando as colunas reais da grade.
-        const catalog = document.querySelector('.service-grid');
-        if (catalog) {
+        // O atraso reinicia em cada linha, acompanhando as colunas reais das grades.
+        document.querySelectorAll('.service-grid, .packages-grid').forEach(catalog => {
             const staggerCards = () => {
                 const columns = getComputedStyle(catalog).gridTemplateColumns.split(' ').length;
                 [...catalog.children].forEach((card, index) => {
@@ -197,7 +196,7 @@
             staggerCards();
             if ('ResizeObserver' in window) new ResizeObserver(staggerCards).observe(catalog);
             else window.addEventListener('resize', staggerCards);
-        }
+        });
         document.addEventListener('focusin', event => showWithin(event.target));
         document.addEventListener('click', event => {
             const link = event.target.closest('a[href^="#"]');
@@ -216,6 +215,61 @@
         revealHash();
         if (document.activeElement !== document.body && document.activeElement !== document.documentElement) showWithin(document.activeElement);
     } catch { showAll(); }
+})();
+
+// Pacotes — luz limitada às bordas; uma atualização por quadro, sem inclinação.
+(() => {
+    const section = document.getElementById('pacotes');
+    if (!section) return;
+    const cards = [...section.querySelectorAll('.package-card')];
+    const mouse = matchMedia('(hover: hover) and (pointer: fine)');
+    const touch = matchMedia('(any-pointer: coarse)');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const enabled = () => mouse.matches && !touch.matches && !reduced.matches && !document.hidden;
+    const resets = [];
+    cards.forEach(card => {
+        let frame = 0;
+        let x = 0, y = 0;
+        const reset = () => {
+            cancelAnimationFrame(frame);
+            frame = 0;
+            card.classList.remove('has-spotlight');
+        };
+        resets.push(reset);
+        card.addEventListener('pointermove', event => {
+            if (event.pointerType !== 'mouse' || !enabled()) return reset();
+            x = event.clientX;
+            y = event.clientY;
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                if (!enabled()) return reset();
+                // Uma leitura seguida das escritas; as variáveis não alteram dimensões.
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--spot-x', (x - rect.left) + 'px');
+                card.style.setProperty('--spot-y', (y - rect.top) + 'px');
+                card.classList.add('has-spotlight');
+            });
+        }, { passive: true });
+        card.addEventListener('pointerleave', reset);
+        card.addEventListener('pointercancel', reset);
+    });
+    const resetAll = () => resets.forEach(reset => reset());
+    mouse.addEventListener('change', resetAll);
+    touch.addEventListener('change', resetAll);
+    reduced.addEventListener('change', resetAll);
+    document.addEventListener('visibilitychange', resetAll);
+    window.addEventListener('blur', resetAll);
+
+    // Usa somente valores existentes, preservando envio e demais dados do formulário.
+    section.addEventListener('click', event => {
+        const link = event.target.closest('a[data-project-type]');
+        const select = document.getElementById('project-type');
+        if (!link || !select || ![...select.options].some(option => option.value === link.dataset.projectType)) return;
+        select.value = link.dataset.projectType;
+        select.dispatchEvent(new Event('input', { bubbles: true }));
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
 })();
 
 // Contato — validação local e envio ao Netlify Forms, com alternativa HTML nativa.
