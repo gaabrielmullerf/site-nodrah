@@ -453,8 +453,8 @@ nav .nav-contact {
 
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
 }
 
 /* Halo independente: o conteúdo e a borda nunca recebem desfoque. */
@@ -479,7 +479,7 @@ nav .nav-contact {
     position: absolute;
     inset: 18px 14px;
     z-index: -1;
-    border-radius: 28px;
+    border-radius: 24px;
     background: var(--service-gradient);
     filter: blur(24px);
     opacity: .2;
@@ -490,30 +490,34 @@ nav .nav-contact {
 .service-card-surface {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 32px;
+    gap: 16px;
     width: 100%;
-    min-height: 292px;
-    padding: 28px;
+    padding: 22px;
     border: 2px solid transparent;
-    border-radius: 28px;
+    border-radius: 24px;
     background: linear-gradient(#1A1A1C, #1A1A1C) padding-box, var(--service-gradient) border-box;
     transition: translate .25s ease, box-shadow .25s ease;
 }
 
+.service-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .service-card .service-card-icon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     color: #f2effa;
     stroke-width: 1.8;
 }
 
 .service-card h3 {
-    margin: 0 0 12px;
+    margin: 0;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: -.5px;
+    letter-spacing: -.3px;
     line-height: 1.35;
     overflow-wrap: anywhere;
 }
@@ -557,7 +561,13 @@ nav .nav-contact {
     line-height: 1.7;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1100px) {
+    .service-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 850px) {
     .service-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -570,13 +580,12 @@ nav .nav-contact {
 
     .service-grid {
         grid-template-columns: minmax(0, 1fr);
-        gap: 24px;
+        gap: 16px;
     }
 
     .service-card-surface {
-        min-height: 260px;
-        padding: 26px;
-        gap: 28px;
+        padding: 20px;
+        gap: 14px;
     }
 
     .catalog-closing {

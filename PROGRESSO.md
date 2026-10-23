@@ -175,3 +175,11 @@ Atualizado em 17/10/2026. Projeto em HTML, CSS e JavaScript, sem framework. Repo
 
 - Removido somente o botão “Conte seu projeto” da abertura e seu contêiner, incluindo estilos e entrada exclusivos de nodrah-hero-actions. CTA do catálogo para #contato e seus estilos compartilhados preservados.
 - Conferidas ausência de links em #inicio e permanência do CTA em .catalog-closing; git diff --check sem erros. Commit e push solicitados pelo responsável; o envio depende da autenticação GitHub disponível no Git local.
+
+### Catálogo compacto — 23/10/2026
+
+- Ícones e títulos reunidos em uma linha de cabeçalho por card, com descrição logo abaixo. Removidos altura mínima e espaço vazio entre ícone e conteúdo; padding reduzido, cantos de 24 px e intervalos menores. Conteúdo dos 12 serviços preservado.
+- Grade ajustada para 4 colunas no desktop amplo, 3 até 1100 px, 2 até 850 px e 1 até 600 px. Em 1440 px, os 12 cards ocupam três linhas, com grade de 632 px de altura. Entradas por linha continuam acompanhando automaticamente o número de colunas.
+- Alterados index.html, style.css e este registro. Chrome headless em 1440, 1024, 768, 390 e 320 px: 12 cards, sem texto cortado e sem rolagem horizontal; capturas inspecionadas em desktop e celular. git diff --check sem erros. Alteração preparada localmente para revisão.
+
+- Texto de encerramento do catálogo atualizado para “Conte-nos sobre seu projeto pelo formulário. Entraremos em contato com você.”, mantendo o botão para #contato. git diff --check sem erros.
