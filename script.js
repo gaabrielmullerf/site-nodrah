@@ -411,11 +411,13 @@
     const poster = hero.querySelector('.nodrah-hero-poster');
     const status = hero.querySelector('.nodrah-hero-status');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    // Fallback preventivo, sem depender de error: vídeo pode carregar e renderizar incorretamente no iPhone.
+    const staticMobile = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
     let visible = false;
     let failed = false;
     let rejected = false;
     let pending = false;
-    const permitted = () => visible && !document.hidden && !reduced.matches && !failed && !rejected;
+    const permitted = () => visible && !document.hidden && !reduced.matches && !staticMobile.matches && !failed && !rejected;
     const report = message => { status.textContent = message; status.hidden = false; };
     poster.addEventListener('error', () => {
         poster.hidden = true;
@@ -439,7 +441,10 @@
             return;
         }
         if (pending || !video.paused) return;
-        if (!video.src) video.src = video.dataset.src;
+        if (!video.src) {
+            video.poster = video.dataset.poster;
+            video.src = video.dataset.src;
+        }
         pending = true;
         try {
             await video.play();
@@ -464,6 +469,7 @@
     }
     document.addEventListener('visibilitychange', update);
     reduced.addEventListener('change', update);
+    staticMobile.addEventListener('change', update);
 
     // Observa a abertura existente sem mudar seu arquivo ou introduzir outro loading.
     const root = document.documentElement;
