@@ -2424,7 +2424,7 @@ html.intro-revealing body::before {
 }
 
 /* Mesma condição do picture e do JavaScript: inclui celular em paisagem.
-   O poster móvel já é violeta; removemos a composição que pode variar no iOS. */
+   Vídeo e poster móveis já são violetas; removemos a composição que pode variar no iOS. */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     .nodrah-hero-media {
         background: #171221;
@@ -2435,9 +2435,6 @@ html.intro-revealing body::before {
         mix-blend-mode: normal;
     }
 
-    .nodrah-hero-video {
-        display: none;
-    }
 }
 
 .nodrah-hero-video {

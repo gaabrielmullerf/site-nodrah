@@ -411,13 +411,14 @@
     const poster = hero.querySelector('.nodrah-hero-poster');
     const status = hero.querySelector('.nodrah-hero-status');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    // Fallback preventivo, sem depender de error: vídeo pode carregar e renderizar incorretamente no iPhone.
-    const staticMobile = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
+    // No celular usamos MP4 leve com a cor incorporada, sem filtros ou mistura em tempo real.
+    const mobileMedia = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
+    const selectedSource = () => mobileMedia.matches ? video.dataset.mobileSrc : video.dataset.src;
     let visible = false;
     let failed = false;
     let rejected = false;
     let pending = false;
-    const permitted = () => visible && !document.hidden && !reduced.matches && !staticMobile.matches && !failed && !rejected;
+    const permitted = () => visible && !document.hidden && !reduced.matches && !failed && !rejected;
     const report = message => { status.textContent = message; status.hidden = false; };
     poster.addEventListener('error', () => {
         poster.hidden = true;
@@ -431,7 +432,7 @@
         report('O vídeo de fundo não carregou. A apresentação está em modo estático.');
     });
     video.addEventListener('playing', () => {
-        if (permitted()) hero.classList.add('is-playing');
+        if (permitted() && video.getAttribute('src') === selectedSource()) hero.classList.add('is-playing');
         else video.pause();
     });
     async function update() {
@@ -441,9 +442,11 @@
             return;
         }
         if (pending || !video.paused) return;
-        if (!video.src) {
-            video.poster = video.dataset.poster;
-            video.src = video.dataset.src;
+        const source = selectedSource();
+        if (video.getAttribute('src') !== source) {
+            hero.classList.remove('is-playing');
+            video.poster = mobileMedia.matches ? video.dataset.mobilePoster : video.dataset.poster;
+            video.src = source;
         }
         pending = true;
         try {
@@ -451,7 +454,7 @@
             if (!permitted()) video.pause();
         } catch (error) {
             // Uma pausa enquanto play() aguarda não é rejeição de autoplay.
-            if (error.name !== 'AbortError') {
+            if (error.name !== 'AbortError' && video.getAttribute('src') === source) {
                 rejected = true;
                 hero.classList.remove('is-playing');
                 report('Reprodução automática indisponível. A apresentação está em modo estático.');
@@ -469,7 +472,14 @@
     }
     document.addEventListener('visibilitychange', update);
     reduced.addEventListener('change', update);
-    staticMobile.addEventListener('change', update);
+    mobileMedia.addEventListener('change', () => {
+        // Pausa antes de trocar a fonte, evitando exibir o original sem tratamento no celular.
+        video.pause();
+        hero.classList.remove('is-playing');
+        failed = false;
+        rejected = false;
+        update();
+    });
 
     // Observa a abertura existente sem mudar seu arquivo ou introduzir outro loading.
     const root = document.documentElement;
