@@ -1,0 +1,11 @@
+{
+  "name": "nodrah-landing-pages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:landings": "node scripts/build-landings.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

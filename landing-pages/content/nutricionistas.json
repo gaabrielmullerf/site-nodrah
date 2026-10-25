@@ -1,0 +1,69 @@
+{
+  "slug": "nutricionistas",
+  "niche": "NUTRICIONISTAS",
+  "title": "Sites e automações para nutricionistas | Nodrah",
+  "description": "Sites, landing pages e automações para nutricionistas. Encontre uma solução para fortalecer sua presença digital e facilitar agendamentos.",
+  "heroTitle": "Seu consultório merece uma presença digital que acompanhe seu crescimento.",
+  "cta": "Encontrar minha solução",
+  "formName": "leads-nutricionistas",
+  "privacyUrl": null,
+  "questions": [
+    {
+      "name": "canais",
+      "type": "checkbox",
+      "title": "Como você conquista pacientes atualmente?",
+      "hint": "Você pode selecionar mais de uma opção.",
+      "options": [
+        "Indicações",
+        "Instagram e conteúdo",
+        "Anúncios pagos",
+        "Google e site",
+        "Outros"
+      ]
+    },
+    {
+      "name": "dificuldade",
+      "type": "radio",
+      "title": "Qual é hoje sua maior dificuldade para crescer?",
+      "hint": "Selecione a opção que mais representa seu momento.",
+      "options": [
+        "Atrair novos pacientes",
+        "Converter interessados",
+        "Manter a agenda preenchida",
+        "Aumentar o faturamento"
+      ]
+    },
+    {
+      "name": "meta-pacientes",
+      "type": "radio",
+      "title": "Quantos pacientes novos gostaria de conquistar por mês?",
+      "hint": "Escolha a meta que faz sentido para o seu consultório.",
+      "options": [
+        "1 a 5",
+        "6 a 10",
+        "11 a 20",
+        "Mais de 20"
+      ]
+    },
+    {
+      "name": "valor-consulta",
+      "type": "currency",
+      "title": "Qual é o valor atual da sua consulta?",
+      "hint": "Informe o valor em reais. Este campo é obrigatório."
+    },
+    {
+      "name": "solucao",
+      "type": "radio",
+      "title": "Qual solução você procura para seu consultório?",
+      "hint": "Tudo bem se você ainda estiver descobrindo.",
+      "options": [
+        "Site profissional",
+        "Landing page para captar pacientes",
+        "Automação de atendimento e agendamento",
+        "Ainda não sei qual solução preciso"
+      ]
+    }
+  ],
+  "formDescription": "Algumas perguntas para descobrir como a tecnologia pode acompanhar o crescimento do seu consultório.",
+  "progressLabel": "Sobre o seu consultório"
+}

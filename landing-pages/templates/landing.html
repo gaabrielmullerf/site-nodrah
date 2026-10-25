@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+{{head}}
+</head>
+<body>
+<div class="brand-intro" aria-hidden="true" inert></div>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+{{header}}
+<main id="conteudo">
+  <section class="landing-hero" aria-labelledby="hero-title">
+    <img class="hero-media" src="/assets/hero/nodrah-hero-violet.jpg" width="1280" height="720" alt="" fetchpriority="high">
+    <div class="hero-content">
+      <h1 id="hero-title" class="section-label">NODRAH PARA {{niche}}</h1>
+      <div class="form-section" id="formulario" aria-label="Encontre a solução para seu consultório">
+        <div class="form-card">
+{{form}}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{{footer}}
+<script type="module" src="/assets/landing/js/navigation.js"></script>
+<script type="module" src="/assets/landing/js/motion.js"></script>
+<script type="module" src="/assets/landing/js/lead-form.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Apenas Deploy Previews. Nenhuma configuração de produção é substituída.
+[context.deploy-preview]
+  command = "node scripts/build-landings.mjs"
+  publish = "."
+
+[context.deploy-preview.environment]
+  NODE_VERSION = "24"
