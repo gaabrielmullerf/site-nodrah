@@ -1,0 +1,65 @@
+/* Abertura da marca — camada decorativa isolada, sem alterar o layout da página. */
+.brand-intro {
+    display: none;
+    position: fixed;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+html.intro-pending body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: var(--bg, #101113);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 650ms ease;
+}
+
+html.intro-revealing body::before {
+    opacity: 0;
+}
+
+.intro-pending .brand-intro {
+    display: block;
+}
+
+.intro-pending .site-header > .brand > img {
+    visibility: hidden;
+}
+
+.brand-intro-piece, .brand-intro-piece img, .brand-intro-energy {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.brand-intro-piece {
+    transform-origin: top left;
+    will-change: transform;
+}
+
+.brand-intro-piece img {
+    display: block;
+}
+
+/* Máscara alfa da PNG: a energia nunca colore o fundo transparente. */
+.brand-intro-energy {
+    background: var(--violet, #8B5CF6);
+    -webkit-mask: var(--intro-logo) center / 100% 100% no-repeat;
+    mask: var(--intro-logo) center / 100% 100% no-repeat;
+    clip-path: inset(0 100% 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.intro-pending body::before, .intro-pending .brand-intro {
+        display: none;
+    }
+
+    .intro-pending .site-header > .brand > img {
+        visibility: visible;
+    }
+}
+
