@@ -32,6 +32,8 @@ for (const file of (await readdir(resolve(root, 'landing-pages/content'))).filte
   if (!content.questions?.length || new Set(content.questions.map(q => q.name)).size !== content.questions.length) throw new Error('Perguntas ausentes ou duplicadas');
   if (content.privacyUrl && !/^\/(?!\/)|^https:\/\//.test(content.privacyUrl)) throw new Error('URL de privacidade inválida');
   const values = Object.fromEntries(Object.entries(content).filter(([,v]) => typeof v === 'string').map(([k,v]) => [k, escape(v)]));
+  // Só o HTML final deve ser registrado; parciais publicados não são formulários.
+  values.netlifyAttributes = 'data-netlify="true" data-netlify-honeypot="bot-field"';
   values.stepCount = String(content.questions.length + 1);
   values.questions = content.questions.map(questionMarkup).join('\n');
   values.privacyReference = content.privacyUrl

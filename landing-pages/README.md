@@ -37,7 +37,7 @@ A saída é HTML completo, inclusive campos do formulário, sem renderização p
 
 ## Envio real com Netlify Forms
 
-O HTML gerado contém o formulário completo `nodrah-nutricionistas`, com `method="POST"`, `action="/"`, `data-netlify="true"`, `form-name`, honeypot e todos os campos nomeados. Templates não são renderizados no navegador: o Netlify deve analisar `nutricionistas/index.html` após a geração, no deploy.
+O HTML gerado contém o formulário completo `nodrah-nutricionistas`, com `method="POST"`, `action="/"`, `data-netlify="true"`, `form-name`, honeypot e todos os campos nomeados. Os atributos de detecção são inseridos somente no HTML final, evitando que o Netlify registre o parcial com um nome de template. Templates não são renderizados no navegador: o Netlify deve analisar `nutricionistas/index.html` após a geração, no deploy.
 
 `lead-service.js` envia um POST AJAX URL-encoded para `/` no mesmo domínio da página. Preserva ocorrências de `canais[]`, normaliza `valor-consulta` para decimal com duas casas (ex.: `1250.50`), inclui `nicho`, origem sem query/fragmento, consentimento e um identificador da tentativa. Captura somente os parâmetros UTM previstos no HTML: source, medium, campaign, term, content, id, source_platform, creative_format e marketing_tactic, limitados a 500 caracteres cada. Sem parâmetros, envia valores vazios.
 

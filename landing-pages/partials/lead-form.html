@@ -1,6 +1,6 @@
       <div class="form-progress" hidden><div class="progress-caption"><span id="step-count" aria-live="polite" aria-atomic="true">Etapa 1 de {{stepCount}}</span><span>{{progressLabel}}</span></div><progress id="lead-progress" max="{{stepCount}}" value="1" aria-label="Progresso do formulário"></progress></div>
       <noscript><p class="demo-note">Ative o JavaScript para preencher as etapas e enviar sua solicitação.</p></noscript>
-      <form id="lead-form" name="{{formName}}" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" novalidate aria-describedby="lead-status">
+      <form id="lead-form" name="{{formName}}" method="POST" action="/" {{netlifyAttributes}} novalidate aria-describedby="lead-status">
         <input type="hidden" name="form-name" value="{{formName}}">
         <input type="hidden" name="nicho" value="{{slug}}">
         <input type="hidden" name="origem" value="/{{slug}}/">
