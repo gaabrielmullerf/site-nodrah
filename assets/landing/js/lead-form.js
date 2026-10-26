@@ -8,16 +8,6 @@ export function parseCurrency(value) {
   const cents = Number(whole) * 100 + Number(decimal.padEnd(2, '0'));
   return Number.isSafeInteger(cents) && cents > 0 ? cents / 100 : null;
 }
-export function phoneDigits(value) {
-  let digits = value.replace(/\D/g, '');
-  if (digits.startsWith('55') && digits.length > 11) digits = digits.slice(2);
-  return digits;
-}
-export function isValidPhone(value) {
-  if (!/^[\d\s()+-]+$/.test(value)) return false;
-  return /^[1-9]{2}(?:[2-5]\d{7}|9\d{8})$/.test(phoneDigits(value));
-}
-
 const form = document.getElementById('lead-form');
 if (form) {
   const steps = [...form.querySelectorAll('[data-step]')];
@@ -29,7 +19,7 @@ if (form) {
   const error = document.getElementById('step-error');
   const result = document.getElementById('demo-result');
   const currency = form.querySelector('[data-currency]');
-  const phone = form.elements.whatsapp;
+  const email = form.elements.email;
   let current = 0;
   let submitting = false;
 
@@ -74,7 +64,8 @@ if (form) {
       const name = form.elements.nome;
       const consent = form.elements.consentimento;
       if (name.value.trim().length < 3) first = invalidate(name, 'Informe seu nome completo.', 'name-error');
-      if (!isValidPhone(phone.value)) first = invalidate(phone, 'Informe um WhatsApp válido com DDD, como (61) 99999-9999.', 'phone-error') || first;
+      if (!email.value.trim()) first = invalidate(email, 'Informe seu e-mail profissional.', 'email-error') || first;
+      else if (!email.validity.valid) first = invalidate(email, 'Informe um e-mail válido, como nome@exemplo.com.br.', 'email-error') || first;
       if (!consent.checked) { const invalid = invalidate(consent, 'Marque a autorização para concluir a demonstração.', 'consent-error'); first ||= invalid; }
       // Prioriza o primeiro campo inválido na ordem de leitura.
       return step.querySelector('[aria-invalid="true"]') || first;
@@ -84,11 +75,6 @@ if (form) {
   currency.addEventListener('blur', () => {
     const value = parseCurrency(currency.value);
     if (value !== null) currency.value = money.format(value);
-  });
-  phone.addEventListener('blur', () => {
-    if (!isValidPhone(phone.value)) return;
-    const digits = phoneDigits(phone.value);
-    phone.value = `(${digits.slice(0,2)}) ${digits.slice(2,-4)}-${digits.slice(-4)}`;
   });
   previous.addEventListener('click', () => { if (current > 0 && !submitting) showStep(current - 1); });
   form.addEventListener('submit', async event => {

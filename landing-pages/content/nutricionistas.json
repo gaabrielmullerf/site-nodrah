@@ -52,15 +52,15 @@
       "hint": "Informe o valor em reais. Este campo é obrigatório."
     },
     {
-      "name": "solucao",
+      "name": "automacao-whatsapp",
       "type": "radio",
-      "title": "Qual solução você procura para seu consultório?",
-      "hint": "Tudo bem se você ainda estiver descobrindo.",
+      "title": "Você utiliza alguma automação no atendimento pelo WhatsApp?",
+      "hint": "Selecione a opção que mais representa seu atendimento atual.",
       "options": [
-        "Site profissional",
-        "Landing page para captar pacientes",
-        "Automação de atendimento e agendamento",
-        "Ainda não sei qual solução preciso"
+        "Não, faço tudo manualmente.",
+        "Sim, utilizo mensagens automáticas.",
+        "Sim, utilizo chatbot ou assistente virtual.",
+        "Não sei dizer."
       ]
     }
   ],

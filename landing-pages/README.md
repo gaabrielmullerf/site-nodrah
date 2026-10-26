@@ -56,7 +56,7 @@ Nenhum pixel, analytics, função de backend, configuração Netlify, commit, pu
 ## Verificação realizada
 
 - Geração executada com Node.js v24.21.0, sem dependências externas.
-- Chrome headless: fluxo de seis etapas, múltipla escolha, escolha única, validação, formatação BRL, telefone com DDD/+55, consentimento, voltar e reiniciar.
+- Chrome headless: fluxo de seis etapas, múltipla escolha, escolha única, validação, formatação BRL, e-mail profissional obrigatório (validação nativa de formato), consentimento, voltar e reiniciar.
 - Conclusão demonstrativa sem requisições POST nem gravação em localStorage/sessionStorage.
 - Menu móvel, Escape e retorno de foco; ausência de rolagem horizontal em 1440×1000, 390×844, 320×640 e 844×390.
 - Respeito a movimento reduzido; bloqueio do formulário com JavaScript desativado.
