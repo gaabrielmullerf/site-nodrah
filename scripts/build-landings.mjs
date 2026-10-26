@@ -36,7 +36,7 @@ for (const file of (await readdir(resolve(root, 'landing-pages/content'))).filte
   values.questions = content.questions.map(questionMarkup).join('\n');
   values.privacyReference = content.privacyUrl
     ? `Consulte a <a href="${escape(content.privacyUrl)}">Política de Privacidade</a>.`
-    : 'A Política de Privacidade será disponibilizada antes da ativação do envio real.';
+    : 'A Política de Privacidade ainda não foi disponibilizada.';
   const html = '<!-- Gerado por scripts/build-landings.mjs. Edite templates e conteúdo, não este arquivo. -->\n' + render(template, {
     ...values,
     ...Object.fromEntries(names.filter(name => name !== 'lead-form').map(name => [name, render(partials[name], values)])),

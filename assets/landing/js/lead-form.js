@@ -1,13 +1,6 @@
-import { submitLead } from './lead-service.js';
+import { submitLead, parseCurrency } from './lead-service.js?v=netlify-forms-1';
 
 const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
-export function parseCurrency(value) {
-  const raw = value.trim().replace(/^R\$\s*/, '').replace(/\s/g, '');
-  if (!/^(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d{1,2})?$/.test(raw)) return null;
-  const [whole, decimal = ''] = raw.replace(/\./g, '').split(',');
-  const cents = Number(whole) * 100 + Number(decimal.padEnd(2, '0'));
-  return Number.isSafeInteger(cents) && cents > 0 ? cents / 100 : null;
-}
 const form = document.getElementById('lead-form');
 if (form) {
   const steps = [...form.querySelectorAll('[data-step]')];
@@ -17,11 +10,13 @@ if (form) {
   const progress = document.getElementById('lead-progress');
   const count = document.getElementById('step-count');
   const error = document.getElementById('step-error');
-  const result = document.getElementById('demo-result');
+  const result = document.getElementById('lead-result');
   const currency = form.querySelector('[data-currency]');
   const email = form.elements.email;
   let current = 0;
+  const status = document.getElementById('lead-status');
   let submitting = false;
+  let submitted = false;
 
   function clearErrors() {
     form.querySelectorAll('.field-error').forEach(element => { element.textContent = ''; });
@@ -39,7 +34,7 @@ if (form) {
     void step.offsetWidth;
     step.classList.add('step-enter');
     previous.hidden = index === 0;
-    buttonLabel.textContent = index === steps.length - 1 ? 'Concluir demonstração' : 'Continuar';
+    buttonLabel.textContent = index === steps.length - 1 ? 'Enviar solicitação' : 'Continuar';
     next.querySelector('[aria-hidden]').textContent = index === steps.length - 1 ? '↗' : '→';
     progress.value = index + 1;
     count.textContent = `Etapa ${index + 1} de ${steps.length}`;
@@ -66,7 +61,7 @@ if (form) {
       if (name.value.trim().length < 3) first = invalidate(name, 'Informe seu nome completo.', 'name-error');
       if (!email.value.trim()) first = invalidate(email, 'Informe seu e-mail profissional.', 'email-error') || first;
       else if (!email.validity.valid) first = invalidate(email, 'Informe um e-mail válido, como nome@exemplo.com.br.', 'email-error') || first;
-      if (!consent.checked) { const invalid = invalidate(consent, 'Marque a autorização para concluir a demonstração.', 'consent-error'); first ||= invalid; }
+      if (!consent.checked) { const invalid = invalidate(consent, 'Autorize o contato comercial para enviar sua solicitação.', 'consent-error'); first ||= invalid; }
       // Prioriza o primeiro campo inválido na ordem de leitura.
       return step.querySelector('[aria-invalid="true"]') || first;
     }
@@ -79,7 +74,7 @@ if (form) {
   previous.addEventListener('click', () => { if (current > 0 && !submitting) showStep(current - 1); });
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (submitting) return;
+    if (submitting || submitted) return;
     const invalid = validate(steps[current]);
     if (invalid) { invalid.focus(); return; }
     if (current < steps.length - 1) { showStep(current + 1); return; }
@@ -92,28 +87,31 @@ if (form) {
     next.disabled = true;
     previous.disabled = true;
     form.setAttribute('aria-busy', 'true');
+    buttonLabel.textContent = 'Enviando…';
+    status.textContent = 'Enviando sua solicitação…';
     try {
-      const response = await submitLead(form);
-      if (response.mode !== 'demo' || response.received) throw new Error('Esta versão permite apenas demonstração.');
+      const request = submitLead(form);
+      steps.forEach(step => { step.disabled = true; });
+      const response = await request;
+      if (!response.received) throw new Error('Envio não confirmado');
+      submitted = true;
+      status.textContent = 'Solicitação enviada com sucesso!';
       form.hidden = true;
       result.hidden = false;
       result.querySelector('h3').focus();
     } catch {
-      error.textContent = 'Não foi possível concluir a prévia. Nenhum recebimento foi confirmado. Tente novamente.';
+      error.textContent = 'O envio não foi confirmado. Suas respostas foram preservadas. Tente novamente ou escreva para contato@nodrah.com.br.';
+      status.textContent = 'Falha no envio. Você pode tentar novamente.';
+      buttonLabel.textContent = 'Tentar novamente';
     } finally {
       submitting = false;
-      next.disabled = false;
-      previous.disabled = false;
+      next.disabled = submitted;
+      previous.disabled = submitted;
+      steps.forEach(step => { step.disabled = submitted; });
       form.removeAttribute('aria-busy');
     }
   });
-  document.getElementById('restart-form').addEventListener('click', () => {
-    form.reset();
-    result.hidden = true;
-    form.hidden = false;
-    showStep(0);
-  });
-  // O HTML chega bloqueado: falhas de carregamento ou JS desativado não enviam dados.
+  // Sem JavaScript, os campos ficam bloqueados para evitar submissões parciais.
   // O listener de submit já está registrado antes da liberação dos campos.
   steps.forEach(step => { step.disabled = false; });
   form.elements['bot-field'].disabled = false;

@@ -43,11 +43,21 @@
       <div class="form-section" id="formulario" aria-label="Encontre a solução para seu consultório">
         <div class="form-card">
       <div class="form-progress" hidden><div class="progress-caption"><span id="step-count" aria-live="polite" aria-atomic="true">Etapa 1 de 6</span><span>Sobre o seu consultório</span></div><progress id="lead-progress" max="6" value="1" aria-label="Progresso do formulário"></progress></div>
-      <noscript><p class="demo-note">Ative o JavaScript para explorar as etapas. O envio permanece desativado nesta demonstração.</p></noscript>
-      <form id="lead-form" name="leads-nutricionistas" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" data-mode="demo" novalidate aria-describedby="demo-disclosure">
-        <input type="hidden" name="form-name" value="leads-nutricionistas">
+      <noscript><p class="demo-note">Ative o JavaScript para preencher as etapas e enviar sua solicitação.</p></noscript>
+      <form id="lead-form" name="nodrah-nutricionistas" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" novalidate aria-describedby="lead-status">
+        <input type="hidden" name="form-name" value="nodrah-nutricionistas">
         <input type="hidden" name="nicho" value="nutricionistas">
         <input type="hidden" name="origem" value="/nutricionistas/">
+        <input type="hidden" name="submission-id" value="">
+        <input type="hidden" name="utm_source" value="">
+        <input type="hidden" name="utm_medium" value="">
+        <input type="hidden" name="utm_campaign" value="">
+        <input type="hidden" name="utm_term" value="">
+        <input type="hidden" name="utm_content" value="">
+        <input type="hidden" name="utm_id" value="">
+        <input type="hidden" name="utm_source_platform" value="">
+        <input type="hidden" name="utm_creative_format" value="">
+        <input type="hidden" name="utm_marketing_tactic" value="">
         <p hidden><label>Não preencha este campo: <input name="bot-field" tabindex="-1" autocomplete="off" disabled></label></p>
         <fieldset class="form-step" data-step data-kind="checkbox" disabled aria-describedby="question-0-hint step-error"><legend tabindex="-1">Como você conquista pacientes atualmente?</legend><p class="step-hint" id="question-0-hint">Você pode selecionar mais de uma opção.</p><div class="choice-list"><label class="choice"><input type="checkbox" name="canais[]" value="Indicações" aria-describedby="question-0-hint step-error"><span>Indicações</span><svg class="choice-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></label>
 <label class="choice"><input type="checkbox" name="canais[]" value="Instagram e conteúdo" aria-describedby="question-0-hint step-error"><span>Instagram e conteúdo</span><svg class="choice-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></label>
@@ -69,21 +79,22 @@
 <label class="choice"><input type="radio" name="automacao-whatsapp" value="Não sei dizer." required aria-describedby="question-4-hint step-error"><span>Não sei dizer.</span><svg class="choice-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></label></div></fieldset>
         <fieldset class="form-step" data-step data-kind="contact" disabled hidden>
           <legend tabindex="-1">Como podemos falar com você?</legend>
-          <p class="step-hint">Para concluir, preencha os campos com *. Nesta prévia, use dados fictícios.</p>
+          <p class="step-hint">Para concluir, preencha os campos com *.</p>
           <div class="project-field"><label for="lead-name">Nome completo <span aria-hidden="true">*</span></label><input id="lead-name" name="nome" type="text" autocomplete="name" maxlength="120" required aria-describedby="name-error"><p class="field-error" id="name-error"></p></div>
           <div class="project-field"><label for="lead-email">E-mail profissional <span aria-hidden="true">*</span></label><input id="lead-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="nome@exemplo.com.br" autocapitalize="none" spellcheck="false" required aria-describedby="email-error"><p class="field-error" id="email-error"></p></div>
           <div class="project-field"><label for="lead-instagram">Instagram profissional <span class="field-optional">(opcional)</span></label><input id="lead-instagram" name="instagram" type="text" autocomplete="off" maxlength="160" placeholder="@seuperfil" autocapitalize="none" spellcheck="false"></div>
-          <p class="privacy-note">Na versão com envio ativo, suas respostas, nome, e-mail e Instagram, quando informado, serão usados pela Nodrah para entender sua necessidade e entrar em contato sobre sites, landing pages e automações. A Política de Privacidade será disponibilizada antes da ativação do envio real.</p>
+          <p class="privacy-note">Suas respostas, nome, e-mail e Instagram, quando informado, serão utilizados pela Nodrah para avaliar sua solicitação e entrar em contato comercial pelo e-mail informado. A Política de Privacidade ainda não foi disponibilizada.</p>
           <label class="consent"><input type="checkbox" name="consentimento" value="Autorizo contato comercial da Nodrah" required aria-describedby="consent-error"><span>Autorizo a Nodrah a entrar em contato pelo e-mail informado para conversar sobre soluções comerciais. <span class="field-optional">*</span></span></label>
           <p class="field-error" id="consent-error"></p>
         </fieldset>
         <p class="field-error step-error" id="step-error" role="alert" aria-atomic="true"></p>
         <div class="form-actions" hidden><button class="contact-copy" type="button" id="previous-step" hidden>← Voltar</button><button class="contact-primary" type="submit" id="next-step" disabled><span data-button-label>Continuar</span><span aria-hidden="true">→</span></button></div>
-        <p class="form-disclosure" id="demo-disclosure">Modo demonstração · Nenhum dado será enviado ou armazenado.</p>
+        <p class="form-disclosure" id="lead-status" role="status" aria-live="polite" aria-atomic="true">Suas informações serão enviadas à Nodrah com sua autorização.</p>
       </form>
-      <div class="demo-result" id="demo-result" hidden>
-        <span class="result-icon" aria-hidden="true">✓</span><span class="section-label">DEMONSTRAÇÃO CONCLUÍDA</span><h3 tabindex="-1">Você chegou ao final da prévia<span class="accent">.</span></h3><p>Suas respostas não foram enviadas nem armazenadas. O recebimento de contatos será habilitado em uma próxima etapa.</p><button class="contact-copy" id="restart-form" type="button">Explorar novamente <span aria-hidden="true">↗</span></button>
+      <div class="demo-result" id="lead-result" hidden>
+        <span class="result-icon" aria-hidden="true">✓</span><span class="section-label">SOLICITAÇÃO ENVIADA</span><h3 tabindex="-1">Solicitação enviada com sucesso!</h3><p>Recebemos suas informações. A equipe da Nodrah entrará em contato pelo e-mail informado para conversar sobre as necessidades do seu consultório.</p><a class="contact-copy" href="https://nodrah.com.br/">Voltar ao site da Nodrah <span aria-hidden="true">↗</span></a>
       </div>
+
         </div>
       </div>
     </div>
@@ -97,6 +108,6 @@
 <script type="module" src="/assets/landing/js/navigation.js"></script>
 <script type="module" src="/assets/landing/js/motion.js"></script>
 <script type="module" src="/assets/landing/js/hero-video.js"></script>
-<script type="module" src="/assets/landing/js/lead-form.js"></script>
+<script type="module" src="/assets/landing/js/lead-form.js?v=netlify-forms-1"></script>
 </body>
 </html>

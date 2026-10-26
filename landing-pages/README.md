@@ -35,52 +35,38 @@ Para outro nicho, adicione um JSON em `content/`, com um slug exclusivo (por exe
 
 A saída é HTML completo, inclusive campos do formulário, sem renderização por framework. Os recursos existentes de logo, Sora e imagem violeta são referenciados, não copiados. Inter e Manrope usam os mesmos recursos Google Fonts do institucional. O CSS institucional não é importado para evitar efeitos da cascata histórica.
 
-## Demonstração e futura integração
+## Envio real com Netlify Forms
 
-O formulário está preparado com `data-netlify="true"`, nome próprio, `form-name`, identificação do nicho/origem, campos nomeados e honeypot. Isso prepara a detecção estática futura; não comprova funcionamento do recebimento.
+O HTML gerado contém o formulário completo `nodrah-nutricionistas`, com `method="POST"`, `action="/"`, `data-netlify="true"`, `form-name`, honeypot e todos os campos nomeados. Templates não são renderizados no navegador: o Netlify deve analisar `nutricionistas/index.html` após a geração, no deploy.
 
-`lead-service.js` mantém `LIVE_SUBMISSION_ENABLED = false`. Em demonstração, `submitLead` retorna antes de construir ou transmitir um payload. Não existe persistência por cookies, localStorage, sessionStorage ou logs. As respostas permanecem apenas nos campos da página durante a navegação entre etapas.
+`lead-service.js` envia um POST AJAX URL-encoded para `/` no mesmo domínio da página. Preserva ocorrências de `canais[]`, normaliza `valor-consulta` para decimal com duas casas (ex.: `1250.50`), inclui `nicho`, origem sem query/fragmento, consentimento e um identificador da tentativa. Captura somente os parâmetros UTM previstos no HTML: source, medium, campaign, term, content, id, source_platform, creative_format e marketing_tactic, limitados a 500 caracteres cada. Sem parâmetros, envia valores vazios.
 
-Sem JavaScript, os campos e o botão chegam bloqueados. O controlador só os libera após registrar a interceptação de submit. O formulário nunca faz POST durante a demonstração. A tela final informa que nada foi enviado nem armazenado.
+O controlador valida todas as seis etapas e o consentimento antes do POST. Durante o envio, bloqueia novas submissões e edição dos campos. Só apresenta sucesso após `response.ok`. Erros HTTP e de rede preservam as respostas e permitem nova tentativa. Não há retry automático, logs de informações pessoais ou armazenamento no navegador.
 
-Antes de uma futura ativação, após autorização:
+O bloqueio do controlador e do serviço impede cliques simultâneos e reenvio após sucesso na mesma página. O `submission-id` é preservado ao tentar novamente para facilitar a conferência no painel. Netlify Forms não oferece garantia de idempotência por esse campo: uma falha de conexão após o recebimento, seguida de retry manual, pode produzir duplicidade. Não há deduplicação entre abas ou após recarregar a página.
 
-1. Publicar a Política de Privacidade e preencher `privacyUrl` no conteúdo. O gerador cria o link quando a URL estiver disponível.
-2. Revisar o texto e a versão do consentimento, estados de envio, erro e confirmação real; o controlador atual aceita somente o resultado demonstrativo.
-3. Ativar explicitamente o adaptador no código, revisar a política de retenção de dados e regenerar o HTML.
-4. Confirmar detecção e recebimento no Netlify em ambiente autorizado. Testar resposta de erro, falha de rede e bloqueio de duplo envio. Não inferir persistência apenas de uma resposta HTTP genérica.
-5. Revisar `noindex, nofollow`, metadados de compartilhamento e canonical antes do lançamento. Esta prévia está intencionalmente fora da indexação.
+## Verificação no painel e notificações
 
-Nenhum pixel, analytics, função de backend, configuração Netlify, commit, push ou publicação foi adicionado nesta etapa.
+A integração só deve ser considerada concluída depois de confirmar uma submissão no painel Netlify. HTTP 2xx e tela de sucesso, isoladamente, não comprovam armazenamento, classificação de spam ou entrega de e-mail.
 
-## Verificação realizada
+No projeto `hilarious-cuchufli-5c9e7a`:
 
-- Geração executada com Node.js v24.21.0, sem dependências externas.
-- Chrome headless: fluxo de seis etapas, múltipla escolha, escolha única, validação, formatação BRL, e-mail profissional obrigatório (validação nativa de formato), consentimento, voltar e reiniciar.
-- Conclusão demonstrativa sem requisições POST nem gravação em localStorage/sessionStorage.
-- Menu móvel, Escape e retorno de foco; ausência de rolagem horizontal em 1440×1000, 390×844, 320×640 e 844×390.
-- Respeito a movimento reduzido; bloqueio do formulário com JavaScript desativado.
-- HTTP 200 para `/nutricionistas/` e redirecionamento local de `/nutricionistas` para `/nutricionistas/`.
-- Comparação SHA-256 dos quatro arquivos institucionais e dos 20 arquivos de demonstrações: preservados.
+1. Abra **Forms** e confirme que a detecção de formulários está habilitada. Se precisar habilitá-la, faça um novo deploy do preview.
+2. Confirme que `nodrah-nutricionistas` aparece em **Active forms**. O log do deploy também pode informar a detecção.
+3. Envie uma única solicitação de teste autorizada, com dados fictícios; confira as abas **Verified submissions** e **Spam submissions**, incluindo canais múltiplos, valor decimal, origem, UTM e consentimento.
+4. Em **Forms > Submission notifications > Add notification > Email notification**, escolha `nodrah-nutricionistas`, informe `contato@nodrah.com.br` e salve. A opção para todos os formulários também pode existir, mas prefira o formulário específico para esta configuração.
+5. Confira o e-mail de notificação e a pasta de spam. `name="email"` permite que o Netlify use o endereço do solicitante como Reply-To.
 
-Limites: validação de navegador feita no Chrome para macOS com emulação de viewport, sem aparelho físico, Safari/Firefox, auditoria completa de acessibilidade ou teste de recebimento no Netlify. A aprovação visual, a política de privacidade, a integração real e a publicação estão pendentes.
+Notificações não são ativadas pelo HTML e não foram presumidas como configuradas. Consulte a documentação oficial: https://docs.netlify.com/manage/forms/setup/ e https://docs.netlify.com/manage/forms/notifications/.
 
-## Ajuste da abertura — 25/10/2026
+## Política de Privacidade
 
-A landing carrega o próprio `/intro.js` institucional, sem modificá-lo. `assets/landing/css/intro.css` reproduz exatamente o bloco original da abertura em `style.css`, incluindo os seis recortes, a máscara da logo, a camada decorativa sem bloqueio de interação e a saída suave. A preferência por movimento reduzido continua sendo respeitada pelo código original.
+Não foi encontrada política no institucional local. `privacyUrl` permanece `null`, sem link fictício. O formulário explica o uso dos dados e exige consentimento comercial não pré-marcado. Quando uma política real estiver disponível, preencha `privacyUrl` e regenere. A publicação da política permanece pendente.
 
-O formulário foi movido para o conteúdo principal do hero. A primeira pergunta aparece após a abertura, sem botão intermediário; o título é NODRAH PARA NUTRICIONISTAS. O subtítulo comercial foi removido. O elemento da mídia de fundo, os arquivos de mídia e suas regras CSS existentes permanecem intactos. O formulário mantém os mesmos scripts, campos, validações e envio demonstrativo.
+## Deploy Preview e preservação
 
-Arquivos ajustados: template, parcial de head, conteúdo do nicho, CSS de layout, HTML gerado e esta documentação. Criado apenas o CSS da intro. Não houve mudança no institucional, integração ou hospedagem.
+A branch `preview-lp-nutricionistas` usa `netlify.toml` somente em `deploy-preview`: Node.js 24, geração por `node scripts/build-landings.mjs` e publicação da raiz. Não há configuração global de produção ou fallback de SPA. Não mesclar o PR #1 durante esta avaliação.
 
-## Deploy Preview para avaliação
+A landing carrega o próprio `/intro.js` institucional e mantém o CSS original da intro. O fundo usa `hero-video.js`: vídeo original no desktop e MP4 violeta local no celular, silencioso, inline e em loop. Pausa quando fora da tela, com aba oculta ou movimento reduzido; mantém poster em falhas ou bloqueio de autoplay. A ativação do formulário não altera intro, vídeo, estilos, institucional ou projetos.
 
-A branch `preview-lp-nutricionistas` usa `netlify.toml` somente no contexto `deploy-preview`: Node.js 24, comando `node scripts/build-landings.mjs` e publicação da raiz (`.`), incluindo o institucional e todos os recursos referenciados. Não há seção global de build, alteração de produção ou fallback de SPA.
-
-O HTML gerado também é versionado. As configurações do painel Netlify precisam permitir Deploy Previews para Pull Requests com destino à branch de produção (`master` neste repositório). O PR não deve ser mesclado durante a avaliação. A URL a compartilhar é a URL efetivamente informada pelo Netlify, acrescida de `/nutricionistas/`.
-
-O formulário continua em demonstração. Nenhum envio real deve ser ativado para a avaliação visual.
-
-## Reprodução do fundo
-
-A landing usa `hero-video.js` com a lógica de reprodução do institucional: fonte original no desktop e MP4 violeta local em telas de até 768 px ou dispositivos sem hover e com ponteiro coarse. O vídeo é decorativo, silencioso, inline e em loop. Pausa fora da tela, com a aba oculta ou movimento reduzido; poster permanece disponível em pausa, bloqueio de autoplay ou falha. Nenhum arquivo do institucional ou de mídia foi alterado.
+Os testes técnicos de envio devem interceptar o POST no navegador para simular HTTP 200, HTTP 500 e falha de rede, sem transmitir dados a serviços externos. Um envio real exige autorização e conferência no painel. Não use dados pessoais reais.
