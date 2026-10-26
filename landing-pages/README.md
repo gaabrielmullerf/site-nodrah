@@ -61,7 +61,9 @@ Notificações não são ativadas pelo HTML e não foram presumidas como configu
 
 ## Política de Privacidade
 
-Não foi encontrada política no institucional local. `privacyUrl` permanece `null`, sem link fictício. O formulário explica o uso dos dados e exige consentimento comercial não pré-marcado. Quando uma política real estiver disponível, preencha `privacyUrl` e regenere. A publicação da política permanece pendente.
+A página `/privacidade/` é uma minuta com identidade visual da Nodrah e pendências explicitadas. O link está integrado à etapa de contato e ao formulário institucional, sem mudar os campos, consentimento ou serviço de leads. A razão social/CNPJ, o acesso individual e a ausência de exportações foram confirmados pelo responsável. Provedor de e-mail, retenção e demais pendências estão em `landing-pages/PUBLICACAO.md`.
+
+Em 26/10/2026, o responsável confirmou que o teste foi armazenado em Verified, com respostas completas e notificação recebida em contato@nodrah.com.br. Esta revisão não realiza novos envios reais. O recebimento e a notificação não são mais pendências desta integração.
 
 ## Deploy Preview e preservação
 

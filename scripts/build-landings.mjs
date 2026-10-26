@@ -34,10 +34,11 @@ for (const file of (await readdir(resolve(root, 'landing-pages/content'))).filte
   const values = Object.fromEntries(Object.entries(content).filter(([,v]) => typeof v === 'string').map(([k,v]) => [k, escape(v)]));
   // Só o HTML final deve ser registrado; parciais publicados não são formulários.
   values.netlifyAttributes = 'data-netlify="true" data-netlify-honeypot="bot-field"';
+  values.canonical = `https://nodrah.com.br/${content.slug}/`;
   values.stepCount = String(content.questions.length + 1);
   values.questions = content.questions.map(questionMarkup).join('\n');
   values.privacyReference = content.privacyUrl
-    ? `Consulte a <a href="${escape(content.privacyUrl)}">Política de Privacidade</a>.`
+    ? `Consulte a <a href="${escape(content.privacyUrl)}" target="_blank" rel="noopener" aria-label="Política de Privacidade (abre em nova aba)">Política de Privacidade</a>.`
     : 'A Política de Privacidade ainda não foi disponibilizada.';
   const html = '<!-- Gerado por scripts/build-landings.mjs. Edite templates e conteúdo, não este arquivo. -->\n' + render(template, {
     ...values,
