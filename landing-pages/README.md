@@ -80,3 +80,7 @@ A branch `preview-lp-nutricionistas` usa `netlify.toml` somente no contexto `dep
 O HTML gerado também é versionado. As configurações do painel Netlify precisam permitir Deploy Previews para Pull Requests com destino à branch de produção (`master` neste repositório). O PR não deve ser mesclado durante a avaliação. A URL a compartilhar é a URL efetivamente informada pelo Netlify, acrescida de `/nutricionistas/`.
 
 O formulário continua em demonstração. Nenhum envio real deve ser ativado para a avaliação visual.
+
+## Reprodução do fundo
+
+A landing usa `hero-video.js` com a lógica de reprodução do institucional: fonte original no desktop e MP4 violeta local em telas de até 768 px ou dispositivos sem hover e com ponteiro coarse. O vídeo é decorativo, silencioso, inline e em loop. Pausa fora da tela, com a aba oculta ou movimento reduzido; poster permanece disponível em pausa, bloqueio de autoplay ou falha. Nenhum arquivo do institucional ou de mídia foi alterado.
