@@ -7,15 +7,17 @@
 - Apenas o responsável pela Nodrah acessa os leads; não há exportação para planilhas/CRM.
 - Submissão em Verified, respostas completas e notificação recebida em contato@nodrah.com.br já confirmadas. Nenhuma nova submissão real deve ser realizada sem autorização.
 
-## Minuta e limites desta atualização
+## Política aprovada e autorização de publicação
 
-A política continua identificada como minuta, com noindex. O provedor de e-mail está confirmado e a retenção foi formalizada como **proposta operacional**, não como rotina já executada. A implementação dos controles e procedimentos, a documentação dos prestadores e a aprovação final ainda precisam ser confirmadas. Não remover o aviso de minuta automaticamente.
+Em 26/10/2026, o responsável aprovou a Política de Privacidade, confirmou a conclusão das verificações operacionais e de segurança necessárias e autorizou commit, push e merge do PR #1 após testes aprovados, seguido de verificação do deploy de produção.
 
-Somente `privacidade/index.html` e este documento são alterados. LP, formulários, consentimento, serviços de envio, intro, vídeo, CSS, institucional, geração e configuração Netlify permanecem intactos.
+A página passa a `index, follow`, sem avisos de minuta ou pendências resolvidas. Não foram inventados países de armazenamento, contratos assinados, mecanismos de transferência específicos ou garantias de prestadores. A confirmação operacional é do responsável, não uma auditoria independente deste agente.
 
-## Retenção e exclusão — procedimento a implementar
+Somente a página de privacidade e este registro são alterados na finalização. LP, formulários, consentimento, serviços de envio, intro, vídeo, CSS, institucional, geração e configuração Netlify permanecem intactos.
 
-**Responsável:** o responsável pela Nodrah, único acesso operacional informado. **Status:** proposto; execução não confirmada.
+## Retenção e exclusão — procedimento operacional
+
+**Responsável:** o responsável pela Nodrah, único acesso operacional informado. **Status:** política adotada; verificações operacionais confirmadas pelo responsável em 26/10/2026.
 
 1. Agendar uma revisão mensal e registrar a data da primeira execução e da próxima revisão em controle privado, restrito ao responsável.
 2. No Netlify Forms e no Zoho Mail, localizar o lead e a data do último contato comercial pertinente. Se não houver contato posterior, usar a data da solicitação. Não renovar artificialmente o prazo por mensagens técnicas ou revisões internas.
@@ -25,9 +27,9 @@ Somente `privacidade/index.html` e este documento são alterados. LP, formulári
 6. Registrar apenas data, referência mínima do registro, decisão, motivo e responsável, sem copiar a base ou o conteúdo comercial. Manter esse controle privado, com finalidade e retenção próprias justificadas. Não colocar leads, pedidos de titulares ou evidências sensíveis no GitHub, no repositório ou em logs públicos.
 7. Conferir com os prestadores os processos/prazos de cópias técnicas e backups e o tratamento de exclusões após eventual restauração. Registrar limitações e providências necessárias. Não presumir prazos do fornecedor nem criar novas exportações/backups da base.
 
-## Segurança — medidas a implementar ou confirmar
+## Segurança — medidas operacionais
 
-Estas instruções não afirmam implantação. Para cada item, o responsável deve registrar em controle privado a confirmação, data e eventuais pendências, sem armazenar senhas, tokens ou códigos de recuperação neste repositório.
+O responsável confirmou as verificações de segurança necessárias. Manter em controle privado as evidências e revisões, sem armazenar senhas, tokens ou códigos de recuperação neste repositório.
 
 - Ativar ou confirmar autenticação em dois fatores no **GitHub, Netlify e Zoho**. Guardar meios de recuperação em local protegido.
 - Utilizar senhas exclusivas e fortes; não compartilhar contas ou credenciais.
@@ -35,7 +37,7 @@ Estas instruções não afirmam implantação. Para cada item, o responsável de
 - Revisar periodicamente usuários, sessões, aplicativos autorizados e permissões; remover acessos desnecessários e rever imediatamente em caso de suspeita. Registrar uma periodicidade e o responsável pela próxima revisão, sem afirmar rotina já existente.
 - Conferir alertas e configurações de segurança dos provedores e manter dispositivos usados para acesso atualizados.
 
-## Solicitações de titulares — procedimento a implementar
+## Solicitações de titulares — procedimento operacional
 
 Canal: **contato@nodrah.com.br**, via Zoho Mail.
 
@@ -46,7 +48,7 @@ Canal: **contato@nodrah.com.br**, via Zoho Mail.
 5. Executar a ação cabível nos dois serviços, responder por canal seguro nos prazos legais aplicáveis e registrar a conclusão. Se houver impossibilidade ou limitação, apresentar justificativa adequada e encaminhamento cabível.
 6. Acompanhar pedidos até a conclusão e verificar que não sejam reintroduzidos no contato comercial por simples restauração de cópias. Não criar um cadastro público ou exportação de leads para esse controle.
 
-## Incidentes — procedimento básico a implementar
+## Incidentes — procedimento operacional
 
 1. Registrar ciência e fatos conhecidos; identificar contas/serviços potencialmente envolvidos.
 2. Conter acessos indevidos: revogar sessões e credenciais comprometidas, restringir permissões e acionar suporte dos prestadores, sem destruir evidências necessárias.
@@ -56,7 +58,7 @@ Canal: **contato@nodrah.com.br**, via Zoho Mail.
 
 ## Prestadores: fatos e verificações documentais separadas
 
-| Prestador | Uso confirmado no projeto | Ainda conferir/documentar na conta/contrato |
+| Prestador | Uso confirmado no projeto | Documentação a manter atualizada na conta/contrato |
 | --- | --- | --- |
 | Netlify | Hospedagem, armazenamento no Forms, antispam e notificações | Termos/DPA aplicáveis à conta, subprocessadores, destinos efetivos do tratamento e condições de exclusão/backups e segurança |
 | Zoho Mail | Recebimento de notificações, correspondência comercial e canal de privacidade | Entidade contratada, região/centro de dados da conta, DPA/termos aplicáveis, subprocessadores e condições de retenção/exclusão/backups |
@@ -65,7 +67,7 @@ Canal: **contato@nodrah.com.br**, via Zoho Mail.
 
 Os provedores podem operar com infraestrutura distribuída e tratamento fora do Brasil. As fontes gerais não comprovam o país de armazenamento de uma conta, a assinatura/aplicabilidade de um contrato ou o mecanismo válido de transferência para a Nodrah. Confirmar esses pontos e sua informação ao titular à luz da LGPD e da regulamentação da ANPD. Não presumir que cláusulas estrangeiras ou referências ao GDPR resolvam automaticamente os requisitos brasileiros.
 
-Não foram instalados cookies ou rastreadores nesta revisão. O código já revisado não contém Meta Pixel, Google Analytics ou cookies próprios de publicidade. Eventuais cookies técnicos e práticas dos prestadores ainda devem ser verificados nas configurações efetivas; não inventar nomes, finalidades ou prazos.
+Não foram instalados cookies ou rastreadores nesta revisão. O código já revisado não contém Meta Pixel, Google Analytics ou cookies próprios de publicidade. Revisar as práticas dos prestadores quando houver mudanças nas configurações; não inventar nomes, finalidades ou prazos de cookies.
 
 ### Fontes oficiais consultadas
 
@@ -82,11 +84,11 @@ Não foram instalados cookies ou rastreadores nesta revisão. O código já revi
 - ANPD — transferências: https://www.gov.br/anpd/pt-br/assuntos/assuntos-internacionais/transferencia-internacional-de-dados
 - ANPD — incidentes: https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis
 
-## Prontidão e bloqueios de publicação
+## Publicação autorizada — execução e verificação
 
-- Os critérios de retenção estão documentados como proposta; não falta mais escolher um prazo, mas confirmar sua adoção e execução. O provedor de e-mail não é mais uma pendência.
-- Confirmar implementação dos controles de segurança, rotinas de revisão/exclusão, atendimento a titulares e incidentes e suas evidências.
-- Concluir a verificação documental dos prestadores/transferências e de eventuais cookies técnicos e aprovar a versão final da política. Manter minuta e noindex até essa aprovação; não tratar como política definitiva.
-- Ambas as rotas são estáticas e versionadas. A configuração Netlify permanece exclusiva de deploy-preview, sem alterações de produção.
-- A API pública já confirmou produção em master e domínio nodrah.com.br, mas não expõe diretório/comando de build. Antes de publicar, confirmar no painel a raiz como diretório publicado e a ausência de comando/rewrite global incompatível.
-- Verificar o PR #1 e o Deploy Preview. Não fazer merge nem publicar antes da resolução dos bloqueios e autorização explícita.
+- Aprovação do texto e verificações operacionais/de segurança confirmadas pelo responsável. Aviso de minuta removido e indexação liberada na política.
+- As informações gerais dos prestadores não permitem atribuir países, garantias ou contratos específicos à Nodrah. A página mantém essa transparência, sem promessas novas.
+- Ambas as rotas são estáticas e versionadas; configuração Netlify preservada. A produção existente está em master e nodrah.com.br.
+- Fazer commit e push na branch preview-lp-nutricionistas, verificar Deploy Preview e conflitos/checks do PR #1 e só então efetuar o merge autorizado.
+- Conferir o deploy de produção e as URLs /, /nutricionistas/ e /privacidade/. Não afirmar publicação bem-sucedida se o deploy ou as URLs falharem.
+- Não enviar novas submissões reais nesta revisão. O recebimento em Verified e a notificação por e-mail já foram confirmados pelo responsável.
