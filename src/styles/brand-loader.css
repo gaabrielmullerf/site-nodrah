@@ -1,0 +1,11 @@
+.brand-loader { display: none; position: fixed; inset: 0; z-index: 10000; place-items: center; background: #101113; color: #fff; }
+.brand-loading-active .brand-loader { display: grid; }
+.brand-loader-content { display: flex; flex-direction: column; align-items: center; gap: clamp(24px, 4vw, 48px); }
+.brand-loader-wordmark { position: relative; font-family: 'Montserrat', 'Inter', sans-serif; font-size: clamp(40px, 10vw, 140px); line-height: 1.2; font-weight: 600; letter-spacing: .22em; padding-left: .22em; }
+.brand-loader-outline { color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / 24%); }
+.brand-loader-fill { position: absolute; inset: 0; padding-left: .22em; color: #8b5cf6; will-change: clip-path; }
+.brand-loader-percentage { color: #e4dff0; font: 400 14px 'Inter', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.brand-loader-percentage > span { color: #9b95a7; margin-left: 4px; }
+.brand-loader-skip { position: absolute; bottom: max(28px, env(safe-area-inset-bottom)); right: max(24px, env(safe-area-inset-right)); padding: 12px 16px; background: transparent; color: #c4bfce; border: 1px solid #46434b; border-radius: 999px; font: 400 12px 'Inter', sans-serif; cursor: pointer; }
+.brand-loader-skip:focus-visible { outline: 2px solid #8b5cf6; outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .brand-loading-active .brand-loader { display: none; } }

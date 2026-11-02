@@ -1,79 +1,23 @@
 // Ordem de inicialização preservada: observadores e efeitos compartilham eventos.
-// Processo — seleção das etapas. Inicialização mantida na posição original.
-(() => {
-    const steps = [...document.querySelectorAll('#processo .etapas-processo > li')];
-    const buttons = steps.map((step, index) => {
-        const title = step.querySelector('h3');
-        const description = step.querySelector('p');
-        title.id = 'processo-etapa-' + (index + 1);
-        description.id = title.id + '-descricao';
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'processo-select';
-        button.setAttribute('aria-label', 'Selecionar etapa ' + (index + 1) + ': ' + title.textContent);
-        button.setAttribute('aria-describedby', description.id);
-        button.setAttribute('aria-pressed', 'false');
-        button.addEventListener('click', () => {
-            steps.forEach((item, i) => {
-                item.classList.toggle('is-selected', i === index);
-                buttons[i].setAttribute('aria-pressed', String(i === index));
-            });
-        });
-        step.append(button);
-        return button;
-    });
-})();
-
-// Estilos compartilhados — halo decorativo: uma atualização por quadro, somente após movimento do mouse.
-(() => {
-    const mouse = matchMedia('(hover: hover) and (pointer: fine)');
-    const touch = matchMedia('(any-pointer: coarse)');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    let halo, frame = 0, x = 0, y = 0;
-    const enabled = () => mouse.matches && !touch.matches && !reduced.matches;
-    const hide = () => {
-        cancelAnimationFrame(frame);
-        frame = 0;
-        halo?.classList.remove('is-visible');
-    };
-    const move = event => {
-        if (!enabled() || document.hidden || event.pointerType !== 'mouse') { hide(); return; }
-        if (!halo) {
-            halo = document.createElement('div');
-            halo.className = 'cursor-halo';
-            halo.setAttribute('aria-hidden', 'true');
-            document.body.prepend(halo);
-        }
-        x = event.clientX; y = event.clientY;
-        if (frame) return;
-        frame = requestAnimationFrame(() => {
-            frame = 0;
-            halo.style.setProperty('--halo-x', x + 'px');
-            halo.style.setProperty('--halo-y', y + 'px');
-            halo.classList.add('is-visible');
-        });
-    };
-    document.addEventListener('pointermove', move, { passive: true });
-    document.documentElement.addEventListener('pointerleave', hide);
-    window.addEventListener('blur', hide);
-    document.addEventListener('visibilitychange', hide);
-    mouse.addEventListener('change', hide);
-    touch.addEventListener('change', hide);
-    reduced.addEventListener('change', hide);
-})();
-
 // Cabeçalho, apresentação e contato — efeitos decorativos só executam quando visíveis e com a aba ativa.
 (() => {
     if (!('IntersectionObserver' in window)) return;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const elements = [...document.querySelectorAll('.nav-contact, .mobile-whatsapp, #contato')];
     const visible = new Set();
+    // O contato é posicionado fora da área dos links; observe o cabeçalho fixo para ele.
+    const targets = new Map(elements.map(element => [element.closest('.site-header') || element, element]));
     const update = () => elements.forEach(element => element.classList.toggle('effect-active', visible.has(element) && !document.hidden && !reduced.matches));
     const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
+        entries.forEach(entry => {
+            const element = targets.get(entry.target);
+            if (entry.isIntersecting) visible.add(element);
+            else visible.delete(element);
+        });
         update();
     });
-    elements.forEach(element => { element.classList.add('effect-ready'); observer.observe(element); });
+    elements.forEach(element => element.classList.add('effect-ready'));
+    targets.forEach((element, target) => observer.observe(target));
     document.addEventListener('visibilitychange', update);
     reduced.addEventListener('change', update);
 })();
@@ -87,7 +31,7 @@
     const track = carousel.querySelector('.technology-track');
     const list = track.querySelector('.technology-list');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    const speed = 25; // Pixels por segundo, independente da largura da tela.
+    const speed = 37.5; // Pixels por segundo, independente da largura da tela.
     let animation;
     let distance = 0;
     let viewportWidth = 0;
@@ -168,7 +112,7 @@
             } catch { showAll(); }
         }, { threshold: 0, rootMargin: '0px 0px -35px 0px' });
         const sections = document.querySelectorAll('#solucoes, #pacotes, #tecnologias, #processo, #portfolio, #perguntas, #contato');
-        const selector = '.section-label, .section-intro, .catalog-intro, .service-card, .catalog-closing, .package-card, .packages-note, .technology-carousel, .etapas-processo > li, .lista-projetos > .projeto, .faq-list > details, :scope > h2, :scope > .contact-description, :scope > .project-form, :scope > .contact-alternative';
+        const selector = '.section-label, .section-intro, .catalog-intro, .service-card, .catalog-closing, .bespoke-panel, .technology-carousel, .process-depth-frame, .lista-projetos > .projeto, .faq-list > details, :scope > h2, :scope > .contact-description, :scope > .project-form, :scope > .contact-alternative';
         sections.forEach(section => {
             section.querySelectorAll(selector).forEach(block => {
                 block.classList.add('reveal-block');
@@ -181,12 +125,12 @@
                 }
             });
         });
-        document.querySelectorAll('.etapas-processo, .lista-projetos, .faq-list').forEach(group => {
+        document.querySelectorAll('.lista-projetos, .faq-list').forEach(group => {
             const items = Array.from(group.children).filter(child => child.classList.contains('reveal-block'));
             items.forEach((item, index) => item.style.setProperty('--reveal-delay', Math.min(index * 50, 200) + 'ms'));
         });
         // O atraso reinicia em cada linha, acompanhando as colunas reais das grades.
-        document.querySelectorAll('.service-grid, .packages-grid').forEach(catalog => {
+        document.querySelectorAll('.service-grid').forEach(catalog => {
             const staggerCards = () => {
                 const columns = getComputedStyle(catalog).gridTemplateColumns.split(' ').length;
                 [...catalog.children].forEach((card, index) => {
@@ -217,59 +161,19 @@
     } catch { showAll(); }
 })();
 
-// Pacotes — luz limitada às bordas; uma atualização por quadro, sem inclinação.
+// Painel de apresentação — borda contínua somente quando visível e com a aba ativa.
 (() => {
-    const section = document.getElementById('pacotes');
-    if (!section) return;
-    const cards = [...section.querySelectorAll('.package-card')];
-    const mouse = matchMedia('(hover: hover) and (pointer: fine)');
-    const touch = matchMedia('(any-pointer: coarse)');
+    const panel = document.querySelector('#pacotes .bespoke-panel');
+    if (!panel || !('IntersectionObserver' in window)) return;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    const enabled = () => mouse.matches && !touch.matches && !reduced.matches && !document.hidden;
-    const resets = [];
-    cards.forEach(card => {
-        let frame = 0;
-        let x = 0, y = 0;
-        const reset = () => {
-            cancelAnimationFrame(frame);
-            frame = 0;
-            card.classList.remove('has-spotlight');
-        };
-        resets.push(reset);
-        card.addEventListener('pointermove', event => {
-            if (event.pointerType !== 'mouse' || !enabled()) return reset();
-            x = event.clientX;
-            y = event.clientY;
-            if (frame) return;
-            frame = requestAnimationFrame(() => {
-                frame = 0;
-                if (!enabled()) return reset();
-                // Uma leitura seguida das escritas; as variáveis não alteram dimensões.
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--spot-x', (x - rect.left) + 'px');
-                card.style.setProperty('--spot-y', (y - rect.top) + 'px');
-                card.classList.add('has-spotlight');
-            });
-        }, { passive: true });
-        card.addEventListener('pointerleave', reset);
-        card.addEventListener('pointercancel', reset);
-    });
-    const resetAll = () => resets.forEach(reset => reset());
-    mouse.addEventListener('change', resetAll);
-    touch.addEventListener('change', resetAll);
-    reduced.addEventListener('change', resetAll);
-    document.addEventListener('visibilitychange', resetAll);
-    window.addEventListener('blur', resetAll);
-
-    // Usa somente valores existentes, preservando envio e demais dados do formulário.
-    section.addEventListener('click', event => {
-        const link = event.target.closest('a[data-project-type]');
-        const select = document.getElementById('project-type');
-        if (!link || !select || ![...select.options].some(option => option.value === link.dataset.projectType)) return;
-        select.value = link.dataset.projectType;
-        select.dispatchEvent(new Event('input', { bubbles: true }));
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-    });
+    let visible = false;
+    const update = () => panel.classList.toggle('panel-motion-active', visible && !document.hidden && !reduced.matches);
+    new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        update();
+    }).observe(panel);
+    document.addEventListener('visibilitychange', update);
+    reduced.addEventListener('change', update);
 })();
 
 // Contato — validação local e envio ao Netlify Forms, com alternativa HTML nativa.
@@ -404,83 +308,9 @@
     update();
 })();
 
-// Vídeo decorativo — poster permanente, reprodução condicionada e falhas legíveis.
+// Entrada do título preservada, independente do fundo WebGL.
 (() => {
     const hero = document.querySelector('.nodrah-hero');
-    const video = hero.querySelector('video');
-    const poster = hero.querySelector('.nodrah-hero-poster');
-    const status = hero.querySelector('.nodrah-hero-status');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    // No celular usamos MP4 leve com a cor incorporada, sem filtros ou mistura em tempo real.
-    const mobileMedia = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
-    const selectedSource = () => mobileMedia.matches ? video.dataset.mobileSrc : video.dataset.src;
-    let visible = false;
-    let failed = false;
-    let rejected = false;
-    let pending = false;
-    const permitted = () => visible && !document.hidden && !reduced.matches && !failed && !rejected;
-    const report = message => { status.textContent = message; status.hidden = false; };
-    poster.addEventListener('error', () => {
-        poster.hidden = true;
-        hero.classList.add('media-unavailable');
-        report('A imagem de fundo não carregou. Você pode continuar navegando normalmente.');
-    });
-    if (poster.complete && !poster.naturalWidth) poster.dispatchEvent(new Event('error'));
-    video.addEventListener('error', () => {
-        failed = true;
-        hero.classList.remove('is-playing');
-        report('O vídeo de fundo não carregou. A apresentação está em modo estático.');
-    });
-    video.addEventListener('playing', () => {
-        if (permitted() && video.getAttribute('src') === selectedSource()) hero.classList.add('is-playing');
-        else video.pause();
-    });
-    async function update() {
-        if (!permitted()) {
-            video.pause();
-            hero.classList.remove('is-playing');
-            return;
-        }
-        if (pending || !video.paused) return;
-        const source = selectedSource();
-        if (video.getAttribute('src') !== source) {
-            hero.classList.remove('is-playing');
-            video.poster = mobileMedia.matches ? video.dataset.mobilePoster : video.dataset.poster;
-            video.src = source;
-        }
-        pending = true;
-        try {
-            await video.play();
-            if (!permitted()) video.pause();
-        } catch (error) {
-            // Uma pausa enquanto play() aguarda não é rejeição de autoplay.
-            if (error.name !== 'AbortError' && video.getAttribute('src') === source) {
-                rejected = true;
-                hero.classList.remove('is-playing');
-                report('Reprodução automática indisponível. A apresentação está em modo estático.');
-            }
-        } finally {
-            pending = false;
-            if (permitted() && video.paused) requestAnimationFrame(update);
-        }
-    }
-    if ('IntersectionObserver' in window) {
-        new IntersectionObserver(entries => {
-            visible = entries[0].isIntersecting;
-            update();
-        }).observe(hero);
-    }
-    document.addEventListener('visibilitychange', update);
-    reduced.addEventListener('change', update);
-    mobileMedia.addEventListener('change', () => {
-        // Pausa antes de trocar a fonte, evitando exibir o original sem tratamento no celular.
-        video.pause();
-        hero.classList.remove('is-playing');
-        failed = false;
-        rejected = false;
-        update();
-    });
-
     // Observa a abertura existente sem mudar seu arquivo ou introduzir outro loading.
     const root = document.documentElement;
     const enter = () => {
@@ -492,4 +322,57 @@
     const observer = new MutationObserver(enter);
     observer.observe(root, { attributes: true, attributeFilter: ['class'] });
     enter();
+})();
+
+// Navegação por seção: predominância visível com margem de estabilidade nas transições.
+(() => {
+    const header = document.querySelector('.site-header');
+    const links = [...document.querySelectorAll('#nodrah-navigation > a[href^="#"]')];
+    const sections = [...document.querySelectorAll('main section[id]')];
+    if (!header || !('IntersectionObserver' in window)) return;
+    let active = null;
+    let frame = 0;
+    const update = () => {
+        frame = 0;
+        const headerStyle = getComputedStyle(header);
+        const inset = headerStyle.position === 'fixed' || headerStyle.position === 'sticky'
+            ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+        const scores = sections.map((section, index) => {
+            const rect = section.getBoundingClientRect();
+            // Conta somente a área visível abaixo do cabeçalho e antes da próxima seção.
+            const nextTop = sections[index + 1]?.getBoundingClientRect().top ?? Infinity;
+            return { section, height: Math.max(0, Math.min(rect.bottom, nextTop, innerHeight) - Math.max(rect.top, inset)) };
+        });
+        const best = scores.reduce((a, b) => b.height > a.height ? b : a, { section: null, height: 0 });
+        const previous = scores.find(item => item.section === active);
+        if (!previous || previous.height === 0 || best.height > previous.height + 32) active = best.section;
+        links.forEach(link => {
+            if (active?.id === link.hash.slice(1)) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+        });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const observer = new IntersectionObserver(schedule, { threshold: [0, .1, .25, .5, .75, 1] });
+    sections.forEach(section => observer.observe(section));
+    // Scroll cobre também seções maiores que a viewport entre notificações do observer.
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', schedule);
+    const offset = () => {
+        document.documentElement.style.setProperty('--nodrah-nav-offset', `${Math.ceil(header.getBoundingClientRect().height) + 16}px`);
+        schedule();
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(offset).observe(header);
+    offset();
+    update();
+})();
+
+// Mede o bloco anterior para prendê-lo apenas após o último serviço entrar em vista.
+(() => {
+    const wrapper = document.querySelector('.solutions-panel-transition');
+    const stage = wrapper?.querySelector('.nodrah-hero-transition');
+    if (!stage || !('ResizeObserver' in window)) return;
+    const measure = () => wrapper.style.setProperty('--solutions-stage-height', `${stage.getBoundingClientRect().height}px`);
+    new ResizeObserver(measure).observe(stage);
+    measure();
 })();
