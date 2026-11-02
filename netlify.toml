@@ -1,7 +1,5 @@
 # Build local e deploys futuros usam HTML pré-renderizado e páginas estáticas independentes.
 [build]
-  # O institucional deve ser recompilado a cada atualização publicada.
-  ignore = "exit 1"
   command = "npm run build"
   publish = "dist"
 
