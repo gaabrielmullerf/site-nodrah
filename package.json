@@ -3,9 +3,39 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:landings": "node scripts/build-landings.mjs"
+    "build:landings": "node scripts/build-landings.mjs",
+    "build:hero": "esbuild assets/hero/hero-waves.js --bundle --format=esm --target=es2020 --minify --legal-comments=eof --outfile=assets/hero/hero-waves.bundle.js",
+    "build:process": "esbuild assets/process/process-carousel.js --bundle --format=esm --target=es2020 --minify --legal-comments=eof --outfile=assets/process/process-carousel.bundle.js",
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/build-site.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src vite.config.ts eslint.config.js scripts/build-site.mjs",
+    "check": "npm run typecheck && npm run lint && npm run build",
+    "test:e2e": "playwright test"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "motion": "^14.9.0",
+    "ogl": "1.0.11",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "0.28.2",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.5"
   }
 }

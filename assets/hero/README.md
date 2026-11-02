@@ -1,4 +1,21 @@
-# Mídia violeta do hero móvel
+# Hero — PatternWaves
+
+O institucional agora usa `PatternWaves.js`, adaptado do componente React Bits fornecido pelo responsável. A referência React integral está em `scripts/reference/PatternWaves.jsx`; `PatternWaves.css` conserva o CSS fornecido. O site continua estático, sem React.
+
+`hero-waves.js` monta o efeito com preset silk, cor #8B5CF6 sobre preto, fade edges, interatividade, cursorSize 50 e cursorStrength 0.6. Toda a superfície usa o mesmo violeta, com as variações de sombra e brilho originais. Os presets e os três shaders fornecidos são preservados integralmente; apenas a cor passada na montagem foi personalizada. O fundo não recebe cor nem sobreposição.
+
+Para regenerar o bundle local, com Node.js 20 ou superior:
+
+```sh
+npm ci
+npm run build:hero
+```
+
+`ogl` 1.0.11 é a dependência de execução ([projeto oficial](https://github.com/oframe/ogl), licença Unlicense). `esbuild` 0.28.2 é usado somente no build. O resultado `hero-waves.bundle.js` deve acompanhar a alteração no repositório: o HTML carrega esse arquivo local diretamente, sem CDN, React ou novo comando de build no Netlify. A configuração de hospedagem não foi alterada.
+
+Sem WebGL2 ou JavaScript, o fundo fica preto e o conteúdo permanece navegável. Movimento reduzido desenha a superfície estática, sem entrada nem ondulações do cursor. Mudanças dessa preferência são aplicadas durante a sessão; a renderização também pausa com a aba oculta. A física interativa depende de `EXT_color_buffer_float`, como no original.
+
+## Histórico da mídia anterior (arquivos preservados, sem uso no hero atual)
 
 `nodrah-hero-violet.jpg` é o poster original com o tratamento violeta já incorporado aos pixels. É um JPEG RGB de 1536 × 1024 px, otimizado/progressivo, qualidade 90, amostragem 4:4:4 e perfil sRGB incorporado. Tamanho: 365.578 bytes; original: 568.789 bytes (redução aproximada de 36%). A composição e a proporção originais foram mantidas; o enquadramento continua sendo definido pelo CSS existente.
 

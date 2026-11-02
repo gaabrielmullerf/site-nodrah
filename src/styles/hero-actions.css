@@ -1,0 +1,5 @@
+.hero-action:focus-visible { outline: 2px solid #8b5cf6; outline-offset: 5px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+.hero-action { display: inline-flex; padding: 14px 22px; border-radius: 8px; color: #fff; background: #7140dc; text-decoration: none; font: 500 14px 'Inter', sans-serif; }
+.hero-action-secondary { border: 1px solid #777; background: #101113; }
+@media (max-width: 768px) { .hero-actions { gap: 12px; } .hero-action { padding: 13px 16px; } }

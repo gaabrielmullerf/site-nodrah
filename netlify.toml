@@ -1,7 +1,11 @@
-# Apenas Deploy Previews. Nenhuma configuração de produção é substituída.
-[context.deploy-preview]
-  command = "node scripts/build-landings.mjs"
-  publish = "."
+# Build local e deploys futuros usam HTML pré-renderizado e páginas estáticas independentes.
+[build]
+  command = "npm run build"
+  publish = "dist"
 
-[context.deploy-preview.environment]
+[build.environment]
   NODE_VERSION = "24"
+
+[context.deploy-preview]
+  command = "npm run build"
+  publish = "dist"
