@@ -144,3 +144,30 @@ test('transparent header changes contrast only while text overlaps a light surfa
  await page.locator('.nodrah-menu-toggle').click();
  await expect(link).toHaveAttribute('data-contrast', 'dark');
 });
+
+test('nutrition landing shares the live hero and preserves form steps and mobile layout', async ({ page }) => {
+ const errors: string[] = [];
+ page.on('pageerror', error => errors.push(error.message));
+ await page.goto('/nutricionistas/');
+ const canvas = page.locator('#nodrah-pattern-waves canvas');
+ await expect(canvas).toHaveCount(1);
+ await expect(page.locator('.hero-video')).toHaveCount(0);
+ await expect(page.locator('#lead-form')).toHaveAttribute('name', 'nodrah-nutricionistas');
+ await page.getByLabel('Indicações', { exact: true }).check();
+ await page.getByLabel('Instagram e conteúdo', { exact: true }).check();
+ await page.locator('#next-step').click();
+ await expect(page.locator('#step-count')).toHaveText('Etapa 2 de 6');
+ await page.locator('#previous-step').click();
+ await expect(page.getByLabel('Indicações', { exact: true })).toBeChecked();
+ await expect(page.getByLabel('Instagram e conteúdo', { exact: true })).toBeChecked();
+ await page.setViewportSize({ width: 390, height: 844 });
+ expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+ await page.locator('.nodrah-menu-toggle').click();
+ await expect(page.locator('#landing-navigation')).toBeVisible();
+ await page.keyboard.press('Escape');
+ await expect(page.locator('#landing-navigation')).toBeHidden();
+ await canvas.evaluate(node => node.dispatchEvent(new Event('webglcontextlost', { bubbles: true, cancelable: true })));
+ await expect(canvas).toHaveCount(0);
+ await expect(page.locator('#next-step')).toBeVisible();
+ expect(errors).toEqual([]);
+});
