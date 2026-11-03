@@ -2,7 +2,7 @@ export function Footer() {
  return (<footer className="site-footer">
 <div className="footer-top">
 <div className="footer-identity">
-<a className="brand" href="#inicio" aria-label="Nodrah — início"><img src="assets-logo/nodrah-logo.png" width="1315" height="440" alt="Nodrah" /></a>
+<a className="brand" href="#inicio" aria-label="Nodrah — início"><span className="brand-wordmark">NODRAH</span></a>
 </div>
 <nav className="footer-nav" aria-label="Navegação do rodapé">
 <a href="#solucoes">{"Soluções"}</a>
