@@ -1521,9 +1521,21 @@ nav .nav-contact:hover {
 
 /* Rodapé. */
 .site-footer {
+    position: relative;
+    isolation: isolate;
+    background: #000;
     margin-top: 64px;
     padding-top: 34px;
     border-top: 0;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    inset: -64px calc(50% - 50vw) -32px;
+    z-index: -1;
+    background: #000;
+    pointer-events: none;
 }
 
 .footer-top {
