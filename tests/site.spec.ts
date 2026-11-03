@@ -151,6 +151,15 @@ test('nutrition landing shares the live hero and preserves form steps and mobile
  await page.goto('/nutricionistas/');
  const canvas = page.locator('#nodrah-pattern-waves canvas');
  await expect(canvas).toHaveCount(1);
+ await expect(page.locator('.site-header .brand-wordmark')).toHaveText('NODRAH');
+ await expect(page.locator('.site-footer .brand-wordmark')).toHaveText('NODRAH');
+ await expect(page.locator('.site-header .brand img, .site-footer .brand img')).toHaveCount(0);
+ const sceneBottom = await page.locator('.landing-scene').evaluate(node => node.getBoundingClientRect().bottom);
+ const canvasBottom = await canvas.evaluate(node => node.getBoundingClientRect().bottom);
+ const footerBottom = await page.locator('.site-footer').evaluate(node => node.getBoundingClientRect().bottom);
+ expect(canvasBottom).toBeGreaterThanOrEqual(footerBottom - 1);
+ expect(sceneBottom).toBeGreaterThanOrEqual(footerBottom - 1);
+ expect(await page.locator('body').evaluate(node => getComputedStyle(node).backgroundColor)).toBe('rgb(0, 0, 0)');
  await expect(page.locator('.hero-video')).toHaveCount(0);
  await expect(page.locator('#lead-form')).toHaveAttribute('name', 'nodrah-nutricionistas');
  await page.getByLabel('Indicações', { exact: true }).check();
